@@ -77,26 +77,26 @@ WSGI_APPLICATION = 'performancexcellence.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
-
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'your_database_name',
-        'HOST': 'your_database_host',
-        'PORT': 'your_database_port',
-        'USER': 'your_database_user',
-        'PASSWORD': 'your_database_password',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'sql_server.pyodbc',
+#        'NAME': 'performancexcellence',
+#        'HOST': 'your_database_host',
+#        'PORT': '1433',
+#        'USER': 'your_database_user',
+#        'PASSWORD': 'your_database_password',
+#        'OPTIONS': {
+#            'driver': 'ODBC Driver 17 for SQL Server',
+#        },
+#    }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -135,7 +135,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    
+    os.path.join(BASE_DIR, 'static')
 ]
 
 # Default primary key field type
