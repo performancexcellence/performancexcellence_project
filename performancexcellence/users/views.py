@@ -8,7 +8,6 @@ from django.urls import conf
 from django.db.models import Q
 from .models import Profile
 
-
 # Create your views here.
 def profiles(request):
     profiles = Profile.objects.all()
@@ -51,3 +50,27 @@ def logoutUser(request):
     logout(request)
     messages.info(request, 'User was logged out!')
     return redirect('login')
+
+
+@login_required(login_url='login')
+def editAccount(request, pk):
+    profile = Profile.objects.get(id=pk)
+    gender_choices = (
+        ('m', 'Masculino'),
+        ('f', 'Feminino')
+    )
+    event_group_choices = (
+        ('Velocidade', 'Velocidade'),
+        ('Saltos', 'Saltos'),
+        ('Lançamentos', 'Lançamentos'),
+        ('Fundo, Meio Fundo e Marcha', 'Fundo, Meio Fundo e Marcha'),
+        ('Provas Combinadas', 'Provas Combinadas')
+    )
+    if request.method == 'POST':
+
+        return redirect('account')
+
+    context = {'profile': profile,
+               'gender_choices': gender_choices,
+               'event_group_choices': event_group_choices}
+    return render(request, 'users/edit_profile.html', context)
