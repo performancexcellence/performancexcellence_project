@@ -56,15 +56,59 @@ def logoutUser(request):
 def editAccount(request, pk):
     profile = Profile.objects.get(id=pk)
     gender_choices = (
-        ('m', 'Masculino'),
-        ('f', 'Feminino')
+        ('M', 'Masculino'),
+        ('F', 'Feminino')
     )
     event_group_choices = (
-        ('Velocidade', 'Velocidade'),
-        ('Saltos', 'Saltos'),
-        ('Lançamentos', 'Lançamentos'),
-        ('Fundo, Meio Fundo e Marcha', 'Fundo, Meio Fundo e Marcha'),
-        ('Provas Combinadas', 'Provas Combinadas')
+        ('Speed', 'Velocidade'),
+        ('Jumps', 'Saltos'),
+        ('Throws', 'Lançamentos'),
+        ('Long distance, Middle Distance e Racewalking', 'Fundo, Meio Fundo e Marcha'),
+        ('Combined Events', 'Provas Combinadas')
+    )
+    athletics_events = (
+        # Corridas
+        ("100m", "100m"),
+        ("200m", "200m"),
+        ("400m", "400m"),
+        ("800m", "800m"),
+        ("1500m", "1500m"),
+        ("3000m", "3000m"),
+        ("5000m", "5000m"),
+        ("10000m", "10000m"),
+        ("Half Marathon", "Half Marathon"),
+        ("Marathon", "Marathon"),
+        # Barreiras
+        ("100m Hurdles", "100m Hurdles"),
+        ("110m Hurdles", "110m Hurdles"),
+        ("400m Hurdles", "400m Hurdles"),
+        # Corrida com obstáculos
+        ("2000m Steeplechase", "2000m Steeplechase"),
+        ("3000m Steeplechase", "3000m Steeplechase"),
+        # Revezamentos
+        ("4x100m Relay", "4x100m Relay"),
+        ("4x400m Relay", "4x400m Relay"),
+        # Saltos
+        ("High Jump", "High Jump"),
+        ("Long Jump", "Long Jump"),
+        ("Triple Jump", "Triple Jump"),
+        ("Pole Vault", "Pole Vault"),
+        # Arremessos e Lançamentos
+        ("Shot Put", "Shot Put"),
+        ("Discus Throw", "Discus Throw"),
+        ("Hammer Throw", "Hammer Throw"),
+        ("Javelin Throw", "Javelin Throw"),
+        # Provas combinadas
+        ("Decathlon", "Decathlon"), # Homens
+        ("Heptathlon", "Heptathlon"), # Mulheres
+        # Categorias específicas para atletas mais jovens
+        ("60m", "60m"),
+        ("60m Hurdles", "60m Hurdles"),
+        ("300m", "300m"),
+        ("300m Hurdles", "300m Hurdles"),
+        ("1000m", "1000m"),
+        ("Octathlon", "Octathlon"),
+        ("Triathlon", "Triathlon"),
     )
     if request.method == 'POST':
 
@@ -72,5 +116,6 @@ def editAccount(request, pk):
 
     context = {'profile': profile,
                'gender_choices': gender_choices,
-               'event_group_choices': event_group_choices}
+               'event_group_choices': event_group_choices,
+               "athletics_events": athletics_events}
     return render(request, 'users/edit_profile.html', context)

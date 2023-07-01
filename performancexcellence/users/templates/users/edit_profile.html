@@ -40,37 +40,11 @@
                                             name="email">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Nova Password:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control"
-                                                    value="{{ profile.user.first_name }}" name="first_name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Repetir Nova Password:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control"
-                                                    value="{{ profile.user.last_name }}" name="last_name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="content-box">
                     <div class="formWrapper">
                         <a class="backButton" href="#"><i class="im im-angle-left"></i></a>
@@ -177,7 +151,56 @@
                         </div>
                     </div>
                 </div>
+                <div class="content-box">
+                    <div class="formWrapper">
+                        <a class="backButton" href="#"><i class="im im-angle-left"></i></a>
+                        <br>
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">Informações Técnicas</h3>
+                            </div>
+                            <div class="card-body">
 
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Tipo de Provas:</label>
+                                            <div class="input-group">
+                                                <select name="gender" class="form-control">
+                                                    {% for choice in event_group_choices %}
+                                                    <option value="{{ choice.0 }}" {% if choice.0 == profile.gender %}selected{% endif %}>{{ choice.1 }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Provas:</label>
+                                            <div class="form-check">
+                                                <div class="provas-container" style="max-height: 100px; overflow-y: auto;">
+                                                    {% for event in athletics_events %}
+                                                    <div class="form-check input-group">
+                                                        <input class="form-check-input" type="checkbox" value="{{ event.0 }}" id="event{{ forloop.counter }}">
+                                                        <label class="form-check-label" for="event{{ forloop.counter }}">
+                                                            {{ event.1 }}
+                                                        </label>
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="content-box">
                     <div class="formWrapper">
                         <a class="backButton" href="#"><i class="im im-angle-left"></i></a>
@@ -192,6 +215,18 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label>Clube:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" value="{{ profile.athlete.team_name }}"
+                                                    name="team_name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label>Treinador:</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -199,21 +234,6 @@
                                                 </div>
                                                 <input type="text" class="form-control" value="{{ profile.coach_name }}"
                                                     name="coach_name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Sector:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                                                </div>
-                                                <select name="event_group" class="form-control">
-                                                    {% for choice in event_group_choices %}
-                                                    <option value="{{ choice.0 }}" {% if choice.0 == profile.event_group %}selected{% endif %}>{{ choice.1 }}</option>
-                                                    {% endfor %}
-                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -221,13 +241,13 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Treinador:</label>
+                                            <label>Treinador Adjunto:</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-users"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" value="{{ profile.coach_name }}"
-                                                    name="coach_name">
+                                                <input type="text" class="form-control" value="{{ profile.second_coach }}"
+                                                    name="second_coach">
                                             </div>
                                         </div>
                                     </div>
@@ -271,7 +291,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Nutricionista:</label>
                                             <div class="input-group">
@@ -283,23 +303,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Clube:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" value="{{ profile.team_name }}"
-                                                    name="team_name">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+
                 <div class="content-box">
                     <input class="btn btn-primary float-right" type="submit" value="Confirmar" />
                 </div>
