@@ -11,7 +11,13 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+          {% if user.profile.profile_image %}
+              <img src="{{ user.profile.profile_image.url }}" class="img-circle elevation-2" alt="User Image">
+          {% else %}
+              <!-- Display a default image if the user doesn't have a profile image -->
+              <img src="{% static 'profiles/profile_default.jpg' %}" class="img-circle elevation-2" alt="User Image">
+          {% endif %}
+
         </div>
         <div class="info">
           <a href="#" class="d-block">{{user.first_name}} {{user.last_name}}</a>

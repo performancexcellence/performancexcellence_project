@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.urls import conf
 from django.db.models import Q
-from .models import Profile
+from .models import Profile,Athlete
 
 # Create your views here.
 def profiles(request):
@@ -17,7 +17,9 @@ def profiles(request):
 
 def userProfile(request, pk):
     profile = Profile.objects.get(id=pk)
-    context = {'profile': profile}
+    athlete = Athlete.objects.get(profile=pk)
+    context = {'profile': profile,
+               'athlete': athlete}
     return render(request, 'users/user-profile.html', context)
 
 def loginUser(request):
