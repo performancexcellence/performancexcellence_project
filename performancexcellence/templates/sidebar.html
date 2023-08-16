@@ -20,7 +20,7 @@
 
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{user.first_name}} {{user.last_name}}</a>
+          <a href="{% url 'edit-account' user.id %}" class="d-block">{{user.first_name}} {{user.last_name}}</a>
         </div>
       </div>
 
@@ -28,7 +28,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item ">
-            <a href="{%url 'profiles' %}" class="nav-link">
+            <a href="{% url 'athletes_list' %}" class="nav-link">
               <i class="fas fa-users"></i>
               <p>Utilizadores</p>
             </a>

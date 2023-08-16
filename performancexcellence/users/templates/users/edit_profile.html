@@ -123,7 +123,7 @@
                                                             class="fab fa-sourcetree"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control"
-                                                    value="{{ profile.nacionality }}" name="nacionality">
+                                                    value="{{ profile.nationality }}" name="nationality">
                                             </div>
                                         </div>
                                     </div>
@@ -144,8 +144,8 @@
 
                                 <div class="form-group">
                                     <label>Bio:</label>
-                                    <textarea class="form-control" rows="3" placeholder="Enter ..."
-                                        value="{{ profile.description }}" name="description"></textarea>
+                                    <textarea class="form-control" rows="5" name="description">{{ profile.description }}</textarea>
+
                                 </div>
                             </div>
                         </div>
@@ -157,157 +157,46 @@
                         <br>
                         <div class="card card-secondary">
                             <div class="card-header">
-                                <h3 class="card-title">Informações Técnicas</h3>
+                                <h3 class="card-title">Password</h3>
                             </div>
                             <div class="card-body">
 
                                 <div class="row">
 
+  
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Tipo de Provas:</label>
-                                            <div class="input-group">
-                                                <select name="gender" class="form-control">
-                                                    {% for choice in event_group_choices %}
-                                                    <option value="{{ choice.0 }}" {% if choice.0 == profile.gender %}selected{% endif %}>{{ choice.1 }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Provas:</label>
+                                            <label>Password Antiga:</label>
                                             <div class="form-check">
-                                                <div class="provas-container" style="max-height: 100px; overflow-y: auto;">
-                                                    {% for event in athletics_events %}
-                                                    <div class="form-check input-group">
-                                                        <input class="form-check-input" type="checkbox" value="{{ event.0 }}" id="event{{ forloop.counter }}">
-                                                        <label class="form-check-label" for="event{{ forloop.counter }}">
-                                                            {{ event.1 }}
-                                                        </label>
-                                                    </div>
-                                                    {% endfor %}
-                                                </div>
+                                                <input type="password" class="form-control" name="old_password">
                                             </div>
                                         </div>
                                     </div>
                                     
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nova Password:</label>
+                                            <div class="form-check">
+                                                <input type="password" class="form-control" name="new_password">
+                                            </div>
+                                        </div>
+                                    </div>
                                     
-                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Confirmação Nova Password:</label>
+                                            <div class="form-check">
+                                                <input type="password" class="form-control" name="confirm_new_password">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="content-box">
-                    <div class="formWrapper">
-                        <a class="backButton" href="#"><i class="im im-angle-left"></i></a>
-                        <br>
-                        <div class="card card-secondary">
-                            <div class="card-header">
-                                <h3 class="card-title">Equipa</h3>
-                            </div>
-                            <div class="card-body">
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Clube:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" value="{{ profile.athlete.team_name }}"
-                                                    name="team_name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Treinador:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" value="{{ profile.coach_name }}"
-                                                    name="coach_name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Treinador Adjunto:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" value="{{ profile.second_coach }}"
-                                                    name="second_coach">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Agente Desportivo:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" value="{{ profile.agent_name }}"
-                                                    name="agent_name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Fisioterapeuta:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" value="{{ profile.physiotherapist_name }}"
-                                                    name="physiotherapist_name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Médico:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" value="{{ profile.doctor_name }}"
-                                                    name="doctor_name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Nutricionista:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" value="{{ profile.nutritionist_name }}"
-                                                    name="nutritionist_name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+ 
 
 
 
