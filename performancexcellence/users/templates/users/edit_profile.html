@@ -1,8 +1,7 @@
 {% extends 'main.html' %}
 {% load static%}
 {% block content %}
-<div class="content-wrapper">
-    <section class="content">
+
         <!-- Main Section -->
         <form class="form" method="POST" action="#" enctype="multipart/form-data">
             {% csrf_token %}
@@ -205,11 +204,9 @@
                 </div>
             </main>
         </form>
-    </section>
-</div>
+
 <br>
 <br>
 <br>
 
-</div>
 {% endblock content %}

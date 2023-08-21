@@ -30,7 +30,7 @@
           <li class="nav-item ">
             <a href="{% url 'athletes_list' %}" class="nav-link">
               <i class="fas fa-users"></i>
-              <p>Utilizadores</p>
+              <p>Todos os Atletas</p>
             </a>
           </li>
         </ul>
@@ -48,15 +48,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="{% url 'daily_registration' user.id %}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Registos Diário</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Histórico</p>
                 </a>
               </li>
             </ul>

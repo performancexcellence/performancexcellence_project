@@ -2,15 +2,12 @@
 {% load static%}
 {% block content %}
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Main content -->
+
     <br>
     <div class="col-sm-6">
         <h2>Atletas</h2>
     </div>
     <br>
-    <section class="content">
 
       <!-- Default box -->
       <div class="card card-solid">
@@ -40,9 +37,6 @@
                 </div>
                 <div class="card-footer">
                   <div class="text-right">
-                    <a href="#" class="btn btn-sm bg-teal">
-                      <i class="fas fa-comments"></i>
-                    </a>
                     <a href="{% url 'show_athlete' athlete.id %}" class="btn btn-sm btn-primary">
                       <i class="fas fa-user"></i> Ver Perfil
                     </a>
@@ -59,9 +53,5 @@
       </div>
       <!-- /.card -->
 
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
 
 {% endblock content %}
