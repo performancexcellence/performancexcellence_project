@@ -1,0 +1,149 @@
+{% extends 'main.html' %}
+{% load static%}
+{% block content %}
+<br>
+
+<!-- Main Section -->
+<form class="form" method="POST" action="#" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">Controlo Subjetivo de Carga</h3>
+        </div>
+
+        <div class="card-body">
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for field_errors in form.errors %}
+                        {% for error in field_errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.athlete.label_tag }}
+                {{ form.athlete }}
+            </div>
+            <div class="form-group">
+                {{ form.date.label_tag }}
+                {{ form.date }}
+            </div>
+            <div class="form-group" onchange="training_type()">
+                {{ form.jumps_training_type.label_tag }}
+                {{ form.jumps_training_type  }}
+            </div>
+            <div class="form-group" id="id_technical_training_form" onchange="technical_training_type()">
+                {{ form.technical_training.label_tag }}
+                {{ form.technical_training  }}
+            </div>
+            <div class="form-group" id="id_multijumps_training">
+                {{ form.multijumps_training.label_tag }}
+                {{ form.multijumps_training  }}
+            </div>
+            <div class="form-group" id="id_nr_steps">
+                {{ form.nr_steps.label_tag }}
+                {{ form.nr_steps  }}
+            </div>
+            <div class="form-group" id="id_high_jump_technique">
+                {{ form.high_jump_technique.label_tag }}
+                {{ form.high_jump_technique  }}
+            </div>
+            <div class="form-group"  id="id_result">
+                {{ form.result.label_tag }}
+                {{ form.result  }}
+            </div>            
+            <div class="row">
+                <div class="form-group col-md-4" id="id_poles_info_height">
+                    {{ form.poles_info_height.label_tag }}
+                    {{ form.poles_info_height }}
+                </div>
+                <div class="form-group col-md-4" id="id_poles_info_flex">
+                    {{ form.poles_info_flex.label_tag }}
+                    {{ form.poles_info_flex }}
+                </div>
+                <div class="form-group col-md-4"  id="id_poles_info_pega">
+                    {{ form.poles_info_pega.label_tag }}
+                    {{ form.poles_info_pega }}
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-secondary float-right">Submeter</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    function training_type() {
+        var jumpsTrainingType = document.getElementById("id_jumps_training_type");
+        var technicalTraining = document.getElementById("id_technical_training_form");
+        var nrSteps = document.getElementById("id_nr_steps");
+        var multijumpsTraining = document.getElementById("id_multijumps_training");
+        var result = document.getElementById("id_result");
+        var polesInfoPega = document.getElementById("id_poles_info_pega");
+        var polesInfoFlex = document.getElementById("id_poles_info_flex");
+        var polesInfoHeight = document.getElementById("id_poles_info_height");
+        var HighJumpTechn = document.getElementById("id_high_jump_technique");
+
+        if (jumpsTrainingType.value === "Multijumps") {
+            technicalTraining.style.display = "none";
+            multijumpsTraining.style.display = "block";
+            nrSteps.style.display = "block";
+            result.style.display = "block";
+            polesInfoPega.style.display = "none";
+            polesInfoFlex.style.display = "none";
+            polesInfoHeight.style.display = "none";
+            HighJumpTechn.style.display = "none";
+        } else if (jumpsTrainingType.value === "Technical Training") {
+            multijumpsTraining.style.display = "none";
+            technicalTraining.style.display = "block";
+            nrSteps.style.display = "block";
+            result.style.display = "block";
+            HighJumpTechn.style.display = "none";
+            technical_training_type(); // Call the function for handling technical training
+        } else {
+            multijumpsTraining.style.display = "none";
+            technicalTraining.style.display = "none";
+            nrSteps.style.display = "none";
+            result.style.display = "none";
+            polesInfoPega.style.display = "none";
+            polesInfoFlex.style.display = "none";
+            polesInfoHeight.style.display = "none";
+            HighJumpTechn.style.display = "none";
+        }
+    }
+
+    function technical_training_type() {
+        var technicalTraining = document.getElementById("id_technical_training");
+        var polesInfoPega = document.getElementById("id_poles_info_pega");
+        var polesInfoFlex = document.getElementById("id_poles_info_flex");
+        var polesInfoHeight = document.getElementById("id_poles_info_height");
+        var HighJumpTechn = document.getElementById("id_high_jump_technique");
+
+        if (technicalTraining.value === "Pole Vault") {
+            polesInfoPega.style.display = "block";
+            polesInfoFlex.style.display = "block";
+            polesInfoHeight.style.display = "block";
+            HighJumpTechn.style.display = "none";
+        } else if (technicalTraining.value === "High Jump"){
+            polesInfoPega.style.display = "none";
+            polesInfoFlex.style.display = "none";
+            polesInfoHeight.style.display = "none";
+            HighJumpTechn.style.display = "block";
+        } else {
+            polesInfoPega.style.display = "none";
+            polesInfoFlex.style.display = "none";
+            polesInfoHeight.style.display = "none";
+            HighJumpTechn.style.display = "none";
+
+
+        }
+    }
+
+    // Call the toggleFields function initially
+    training_type();
+</script>
+
+{% endblock content %}
