@@ -1,0 +1,294 @@
+{% extends 'main.html' %}
+{% load static%}
+
+{% block content %}
+
+<br>
+
+
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+
+          <!-- Profile Image -->
+          <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+              <div class="text-center">
+                <img src="{{ profile.profile_image.url }}" alt="user-avatar" class="img-circle img-fluid">
+              </div>
+
+              <h3 class="profile-username text-center">{{profile.name}}</h3>
+
+              <hr>
+              <p class="text-center">{{athlete.event_group}}</p>
+              <hr>
+
+              <a href="{{ athlete.url_world_athletics }}" class="btn btn-primary btn-block"><b>Perfil World
+                  Athletics</b></a>
+              <br>
+              <a href="{{ athlete.url_fpacompeticoes }}" class="btn btn-secondary btn-block"><b>Perfil
+                  FPACompetições</b></a>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+          <!-- About Me Box -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Sobre mim:</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <strong><i class="fas fa-book mr-1"></i> Treinador:</strong>
+
+              <p class="text-muted">
+                {{ athlete.main_coach}}
+              </p>
+
+              <hr>
+
+              <strong><i class="fas fa-map-marker-alt mr-1"></i>Clube:</strong>
+
+              <p class="text-muted">{{ athlete.team_name}}</p>
+
+              <hr>
+
+              <strong><i class="fas fa-pencil-alt mr-1"></i> Staff</strong>
+
+              <ul class="text-muted">
+                <li class="tag tag-danger">Psicologo: {{ athlete.psychologist}}</li>
+                <li class="tag tag-danger">Treinador Adjunto: {{ athlete.second_coach}}</li>
+                <li class="tag tag-success">Agente Desportigo: {{athlete.agent}}</li>
+                <li class="tag tag-info">Fisioterapeuta: {{athlete.physiotherapist}}</li>
+                <li class="tag tag-warning">Médico: {{athlete.doctor}}</li>
+                <li class="tag tag-primary">Nutricionista: {{athlete.nutritionist}}</li>
+              </ul>
+
+              <hr>
+
+              <strong><i class="far fa-file-alt mr-1"></i>Notas:</strong>
+
+              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.
+              </p>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header p-2">
+              <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link" href="#curriculum" data-toggle="tab">Currículo Desportivo</a>
+                </li>
+                <li class="nav-item"><a
+                    class="{% if page == 'personal_records'%}nav-link active{% else %}nav-link{% endif %}"
+                    href="#personal_records" data-toggle="tab">
+                    Recordes Pessoais
+                  </a></li>
+                <li class="nav-item"><a
+                    class="{% if page == 'progression'%}nav-link active{% else %}nav-link{% endif %}"
+                    href="#competition_progression" data-toggle="tab">
+                    Progressão
+                  </a></li>
+
+                <li class="nav-item"><a class="nav-link" href="#controltrainingevaluation" data-toggle="tab">Controlo e
+                    Avaliação Treino</a></li>
+                <li class="nav-item"><a class="nav-link" href="#injuries" data-toggle="tab">Histórico Lesões</a></li>
+                <li class="nav-item"><a class="nav-link" href="#wellness" data-toggle="tab">Wellness</a></li>
+              </ul>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="tab-pane" id="curriculum">
+                  <div>
+                    Em construção curriculum
+                  </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="{% if page == 'personal_records'%}active tab-pane{% else %}tab-pane{% endif %}"
+                  id="personal_records">
+                  <div>
+                    <table class="table">
+                      <thead class="text-center">
+                        <tr class="text-center">
+                          <th>Prova</th>
+                          <th>Marca</th>
+                          <th>Vento</th>
+                          <th>Local</th>
+                          <th>Data</th>
+                        </tr>
+                      </thead>
+                      <tbody class="text-center">
+                        {% for record in personal_records %}
+                        <tr>
+                          <td>{{ record.event_name }}</td>
+                          <td>{{ record.competition_result }}</td>
+                          <td>{{ record.wind_direction }} {{ record.competition_wind }}</td>
+                          <td>{{ record.competition_local }}</td>
+                          <td>{{ record.competition_date }}</td>
+                          <td></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+                <!-- /.tab-pane -->
+
+                <div class="{% if page == 'progression'%}active tab-pane{% else %}tab-pane{% endif %}"
+                  id="competition_progression">
+                  <div class="row">
+                    <select class="custom-select" name="event_selection" onchange="redirectToEvent()" >
+                      <option {% if event is None %}selected{% endif %} disabled>Selecionar Prova</option>
+                      {% for record in personal_records %}
+                          <option {% if event == record.event_name %}selected{% endif %} value="{{ record.event_name }}">{{ record.event_name }} </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div>
+                    <figure class="highcharts-figure">
+                      <div id="history_progression"></div>
+                    </figure>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane" id="controltrainingevaluation">
+                  <div>
+                    Em construção CET
+                  </div>
+                </div>
+
+                <div class="tab-pane" id="injuries">
+                  <div>
+                    Em construção lesoes
+                  </div>
+                </div>
+
+                <div class="tab-pane" id="wellness">
+                  <div>
+                    Em construção wellness
+                  </div>
+                  <figure class="highcharts-figure">
+                    <div id="wellness"></div>
+                  </figure>
+                </div>
+                <!-- /.tab-pane -->
+              </div>
+              <!-- /.tab-content -->
+            </div><!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+
+<!-- /.content-wrapper -->
+<script>
+  // Função que redireciona para a view com o evento selecionado
+  function redirectToEvent() {
+    var selectedEvent = document.querySelector('select[name="event_selection"]').value;
+    window.location.href = "{% url 'show_athlete' athlete.id %}?page=progression&event=" + encodeURIComponent(selectedEvent);
+  }
+
+  var progression_s = '{{ progression_data | safe }}';
+  var progression = JSON.parse(progression_s);
+  var wellness_s = '{{ wellness_data | safe }}';
+  var wellness = JSON.parse(wellness_s);
+
+  Highcharts.chart('history_progression', {
+      chart: {
+          type: 'line'
+      },
+      title: {
+          text: 'Progressão:'
+      },
+      xAxis: {
+          categories: progression.years
+      },
+      yAxis: {
+          title: {
+              text: 'Marcas'
+          }
+      },
+      plotOptions: {
+          line: {
+              dataLabels: {
+                  enabled: true
+              },
+              enableMouseTracking: false
+          }
+      },
+      series: [{
+          name: 'Oficiais',
+          data: progression.results
+      }]
+  });
+
+  Highcharts.chart('wellness', {
+      chart: {
+          type: 'line'
+      },
+      title: {
+          text: 'Wellness:'
+      },
+      xAxis: {
+          categories: wellness.registration_date
+      },
+      yAxis: {
+          title: {
+              text: 'Marcas'
+          }
+      },
+      plotOptions: {
+          line: {
+              dataLabels: {
+                  enabled: true
+              },
+              enableMouseTracking: false
+          }
+      },
+      series: [{
+          name: 'Mood',
+          data: wellness.mood
+      },
+      {
+          name: 'Niveis de Stress',
+          data: wellness.stress_levels
+      },
+      {
+          name: 'Qualidade de Sono',
+          data: wellness.sleep_quality
+      },
+      {
+          name: 'Dor Muscular',
+          data: wellness.muscle_soreness
+      },
+      {
+          name: 'Fadiga',
+          data: wellness.fatigue
+      },
+      {
+          name: 'Média',
+          data: wellness.average
+      }]
+  });
+
+  
+
+
+</script>
+
+{% endblock content %}
