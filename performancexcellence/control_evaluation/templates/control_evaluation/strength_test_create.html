@@ -1,0 +1,265 @@
+<!-- strength_form.html -->
+{% extends 'main.html' %}
+
+{% block content %}
+{% load static%}
+
+<br>
+<div class="card">
+    <div class="card-header ui-sortable-handle">
+        <h3>Controlo e Avaliação de Treino: FORÇA</h3>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.athlete.id_for_label }}">{{ form.athlete.label }}</label>
+                {{ form.athlete }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.goal.id_for_label }}">{{ form.goal.label }}</label>
+                {{ form.goal }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.exercise.id_for_label }}">{{ form.exercise.label }}</label>
+                {{ form.exercise }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
+                {{ form.date }}
+            </div>
+        </div>
+    </div>
+    <div class="card" id="parallelSquat">
+        <div class="card-header ui-sortable-handle">
+            <h3>Protocolo Full Squat</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Objetivo do Teste:</h2>
+                    <p>Avaliar a potência muscular durante o meio agachamento.</p>
+                    
+                    <h2>Procedimento:</h2>
+                    <ul>
+                        <li>O atleta deve agachar-se até que as coxas estejam paralelas ao chão.</li>
+                        <li>O atleta deve realizar 3 repetições por cada subida de peso.</li>
+                        <li>O atleta termina o teste quando não consegue continuar a subir o valor da potência.</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MLoZuAkIyZI" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" id="halfSquat" hidden>
+        <div class="card-header ui-sortable-handle">
+            <h3>Protocolo Half Squat</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Objetivo do Teste:</h2>
+                    <p>Avaliar a potência muscular durante o meio agachamento.</p>
+                    
+                    <h2>Procedimento:</h2>
+                    <ul>
+                        <li>O atleta deve agachar-se até que os joelhos estejam dobrados em um ângulo de aproximadamente 90 graus.</li>
+                        <li>O atleta deve realizar 3 repetições por cada subida de peso.</li>
+                        <li>O atleta termina o teste quando não consegue continuar a subir o valor da potência.</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MLoZuAkIyZI" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card" id="powerClean" hidden>
+        <div class="card-header ui-sortable-handle">
+            <h3>Protocolo Power Clean</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Objetivo do Teste:</h2>
+                    <p>Avaliar a força máxima no Power Clean.</p>
+                    
+                    <h2>Procedimento:</h2>
+                    <ul>
+                        <li><strong>Execução do Movimento:</strong>
+                            <ul>
+                                <li>O atleta deve segurar uma barra com as mãos afastadas à largura dos ombros.</li>
+                                <li>O atleta posiciona os pés na largura dos ombros com os dedos dos pés ligeiramente apontados para fora.</li>
+                                <li>O atleta inicia o movimento dobrando os quadris e joelhos, mantendo as costas retas.</li>
+                                <li>A barra é puxada rapidamente da posição no chão para a posição dos ombros, com o atleta estendendo as pernas e os quadris.</li>
+                                <li>O atleta recebe a barra nos ombros, dobrando os joelhos e quadris para absorver o impacto.</li>
+                                <li>O atleta deve realizar 3 repetições por cada subida de peso.</li>
+                                <li>O atleta termina o teste quando não consegue continuar a subir o valor da potência.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/KwYJTpQ_x5A" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card" id="benchPress" hidden>
+        <div class="card-header ui-sortable-handle">
+            <h3>Protocolo Bench Press</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Objetivo do Teste:</h2>
+                    <p>Avaliar a força máxima no Bench Press.</p>
+                    
+                    <h2>Procedimento:</h2>
+                    <ul>
+                        <li><strong>Execução do Movimento:</strong>
+                            <ul>
+                                <li>O atleta deita-se em um banco plano.</li>
+                                <li>O atleta segura a barra com as mãos afastadas à largura dos ombros.</li>
+                                <li>O atleta abaixa a barra até o peito e, em seguida, a empurra de volta à posição inicial.</li>
+                                <li>O atleta deve realizar 3 repetições por cada subida de peso.</li>
+                                <li>O atleta termina o teste quando não consegue continuar a subir o valor da potência.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/EdDqD4aKwxM" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header ui-sortable-handle">
+            <h3>Dados</h3>
+        </div>
+        <div class="card-body">
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>Erro no formulário:</strong> Por favor, corrija os seguintes erros:<br>
+                {% for field, errors in form.errors.items %}
+                    <strong>{{ field }}:</strong> {{ errors|join:", " }}<br>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <label for="{{ form.sets.id_for_label }}">{{ form.sets.label }}</label>
+                {{ form.sets }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.weight.id_for_label }}">{{ form.weight.label }}</label>
+                {{ form.weight }}
+            </div>
+
+            <div class="row">
+                <!-- MPV -->
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.mpv1.id_for_label }}">MPV 1:</label>
+                    {{ form.mpv1 }}
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.mpv2.id_for_label }}">MPV 2:</label>
+                    {{ form.mpv2 }}
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.mpv3.id_for_label }}">MPV 3:</label>
+                    {{ form.mpv3 }}
+                </div>
+            </div>
+            <div class="row">
+                <!-- Peak Velocity -->
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.peak_velocity1.id_for_label }}">Velocidade Máxima 1:</label>
+                    {{ form.peak_velocity1 }}
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.peak_velocity2.id_for_label }}">Velocidade Máxima 2:</label>
+                    {{ form.peak_velocity2 }}
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.peak_velocity3.id_for_label }}">Velocidade Máxima 3:</label>
+                    {{ form.peak_velocity3 }}
+                </div>
+            </div>
+            <div class="row">
+                <!-- ROM -->
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.rom1.id_for_label }}">ROM 1:</label>
+                    {{ form.rom1 }}
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.rom2.id_for_label }}">ROM 2:</label>
+                    {{ form.rom2 }}
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.rom3.id_for_label }}">ROM 3:</label>
+                    {{ form.rom3 }}
+                </div>
+            </div>
+            <div class="row">
+                <!-- Mean Power -->
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.mean_power1.id_for_label }}">Potência Média 1:</label>
+                    {{ form.mean_power1 }}
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.mean_power2.id_for_label }}">Potência Média 2:</label>
+                    {{ form.mean_power2 }}
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="{{ form.mean_power3.id_for_label }}">Potência Média 3:</label>
+                    {{ form.mean_power3 }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary float-right">Guardar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    var currentDate = new Date();
+  
+    var formattedDate = currentDate.toISOString().split('T')[0];
+  
+    document.getElementById('id_date').value = formattedDate;
+
+    document.getElementById('id_exercise').onchange = function() {
+        var selectedExercise = this.value;
+
+        // Oculte todos os cards de protocolo
+        var protocolCards = document.querySelectorAll('.card[id$="Squat"], .card[id="powerClean"], .card[id="hipThrust"], .card[id="benchPress"]');
+        protocolCards.forEach(function(card) {
+            card.setAttribute('hidden', 'true');
+        });
+
+        // Mostre o card de protocolo com base no exercício selecionado
+        if (selectedExercise === 'Parallel Squat') {
+            document.getElementById('parallelSquat').removeAttribute('hidden');
+        } else if (selectedExercise === 'Half Squat') {
+            document.getElementById('halfSquat').removeAttribute('hidden');
+        } else if (selectedExercise === 'Power Clean') {
+            document.getElementById('powerClean').removeAttribute('hidden');
+        } else if (selectedExercise === 'Hip Thrust') {
+            document.getElementById('hipThrust').removeAttribute('hidden');
+        } else if (selectedExercise === 'Bench Press') {
+            document.getElementById('benchPress').removeAttribute('hidden');
+        }
+    };
+</script>
+
+{% endblock %}

@@ -10,6 +10,14 @@ from .models import Profile
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
 
+def about(request):
+    # Se você quiser passar variáveis para o template, você pode fazê-lo aqui
+    context = {
+    }
+    
+    # Renderize o template com o contexto e retorne a resposta
+    return render(request, 'users/about.html', context)
+
 # Create your views here.
 def loginUser(request):
     page = 'login'

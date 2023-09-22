@@ -1,192 +1,109 @@
 {% load static%}
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-primary elevation-4">
-  <!-- Brand Logo -->
-  <a href="#" class="brand-link">
-    <img src="{% static 'dist/img/benfica_olimpico_logo.png' %}" alt="Academia Benfica Olímpico Logo" class="img-fluid mb-2"
+    <a href="#" class="brand-link">
+      <img src="{% static 'dist/img/benfica_olimpico_logo.png' %}" alt="Academia Benfica Olímpico Logo" class="img-fluid mb-2"
       style="opacity: .8">
-  </a>
-
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
+    </a>
+   <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <div class="image">
-        {% if user.profile.profile_image %}
-        <img src="{{ user.profile.profile_image.url }}" class="img-circle elevation-2" alt="User Image">
-        {% else %}
-        <!-- Display a default image if the user doesn't have a profile image -->
-        <img src="{% static 'profiles/profile_default.jpg' %}" class="img-circle elevation-2" alt="User Image">
-        {% endif %}
-
+        <div class="image">
+          {% if user.profile.profile_image %}
+          <img src="{{ user.profile.profile_image.url }}" class="img-circle elevation-2" alt="User Image">
+          {% else %}
+          <!-- Display a default image if the user doesn't have a profile image -->
+          <img src="{% static 'profiles/profile_default.jpg' %}" class="img-circle elevation-2" alt="User Image">
+          {% endif %}
+  
+        </div>
+        <div class="info">
+          <a href="{% url 'edit-account' user.id %}" class="d-block">{{user.first_name}} {{user.last_name}}</a>
+        </div>
       </div>
-      <div class="info">
-        <a href="{% url 'edit-account' user.id %}" class="d-block">{{user.first_name}} {{user.last_name}}</a>
-      </div>
-    </div>
-
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item ">
-          <a href="{% url 'athletes_list' %}" class="nav-link">
-            <i class="fas fa-users"></i>
-            <p>Todos os Atletas</p>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item ">
-          <a href="#" class="nav-link active">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Wellness
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{% url 'daily_registration' user.id %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Registos Diário</p>
-              </a>
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item ">
+                <a href="{% url 'athletes_list' %}" class="nav-link">
+                  <i class="fas fa-users"></i>
+                  <p>Todos os Atletas</p>
+                </a>
             </li>
-          </ul>
-        </li>
-
-      </ul>
-    </nav>
-
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item ">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-edit"></i>
-            <p>
-              Controlo de Treino
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Força</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Velocidade</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Resistência</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Técnica</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-      </ul>
-    </nav>
-
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item ">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-edit"></i>
-            <p>
-              Equipa Multidisciplinar
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Departamento Médico</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Fisioterapia</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Nutrição</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Psicologia</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Fisiologia</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-      </ul>
-    </nav>
-
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item ">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-edit"></i>
-            <p>
-              Academia Olímpica
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Sobre</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Regulamento</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-      </ul>
-    </nav>
-  </div>
-  <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
-    <div class="os-scrollbar-track">
-      <div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div>
-    </div>
-  </div>
-  <div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden">
-    <div class="os-scrollbar-track">
-      <div class="os-scrollbar-handle" style="height: 40.1766%; transform: translate(0px, 0px);"></div>
-    </div>
-  </div>
-  <div class="os-scrollbar-corner"></div>
-  <!-- /.sidebar -->
+            <li class="nav-item ">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Wellness
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'daily_registration' user.id %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Registos Diário</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Controlo de Treino
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'add_strength_test' %}" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Força</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'create_speed' %}" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Velocidade</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Resistência</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Técnica</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Academia Olímpica
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'about' %}" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sobre</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Regulamento</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+   </div>
 </aside>
