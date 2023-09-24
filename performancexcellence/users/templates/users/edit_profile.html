@@ -1,0 +1,212 @@
+{% extends 'main.html' %}
+{% load static%}
+{% block content %}
+
+        <!-- Main Section -->
+        <form class="form" method="POST" action="#" enctype="multipart/form-data">
+            {% csrf_token %}
+            <main class="formPage my-xl">
+                <div class="content-box">
+                    <div class="formWrapper">
+                        <a class="backButton" href="#"><i class="im im-angle-left"></i></a>
+                        <br>
+
+
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">Definições Usuário</h3>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <label>Username:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" data-mask=""
+                                            value="{{ profile.user.username }}" name="username">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-at"></i></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" value="{{ profile.user.email }}"
+                                            name="email">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-box">
+                    <div class="formWrapper">
+                        <a class="backButton" href="#"><i class="im im-angle-left"></i></a>
+                        <br>
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">Informações Pessoais</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Primeiro Nome:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control"
+                                                    value="{{ profile.user.first_name }}" name="first_name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Último Nome:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control"
+                                                    value="{{ profile.user.last_name }}" name="last_name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Data Nascimento:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="fas fa-calendar-minus"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" value="{{ profile.birth_date }}"
+                                                    name="birth_date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Género:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="fas fa-venus-mars"></i></span>
+                                                </div>
+                                                <select name="gender" class="form-control">
+                                                    {% for choice in gender_choices %}
+                                                    <option value="{{ choice.0 }}" {% if choice.0 == profile.gender %}selected{% endif %}>{{ choice.1 }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nacionalidade:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="fab fa-sourcetree"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control"
+                                                    value="{{ profile.nationality }}" name="nationality">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Local Nascimento:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="fab fa-sourcetree"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control"
+                                                    value="{{ profile.birth_place }}" name="birth_place">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Bio:</label>
+                                    <textarea class="form-control" rows="5" name="description">{{ profile.description }}</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="formWrapper">
+                        <a class="backButton" href="#"><i class="im im-angle-left"></i></a>
+                        <br>
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">Password</h3>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+
+  
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Password Antiga:</label>
+                                            <div class="form-check">
+                                                <input type="password" class="form-control" name="old_password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nova Password:</label>
+                                            <div class="form-check">
+                                                <input type="password" class="form-control" name="new_password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Confirmação Nova Password:</label>
+                                            <div class="form-check">
+                                                <input type="password" class="form-control" name="confirm_new_password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+
+
+
+                <div class="content-box">
+                    <input class="btn btn-primary float-right" type="submit" value="Confirmar" />
+                </div>
+            </main>
+        </form>
+
+<br>
+<br>
+<br>
+
+{% endblock content %}

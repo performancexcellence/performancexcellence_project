@@ -1,0 +1,78 @@
+{% extends 'main.html' %}
+{% load static%}
+{% block content %}
+<br>
+
+        <!-- Main Section -->
+        <form class="form" method="POST" action="#" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Controlo Peso e Frequencia Cardíaca</h3>
+                </div>
+                <div class="card-body">
+                    <input class="form-control form-control-lg" disabled value="{{registration.weight}}">
+                    <br>
+                    <input class="form-control form-control-lg" disabled value="{{registration.heart_rate}}">
+                </div>
+
+            </div>
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Controlo Subjetivo de Carga</h3>
+                </div>
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="customRange1">Fadiga</label>
+                        <div class="row">
+                            <div class="col-sm-4 text-left"><span>Muito Fresco</span></div> 
+                            <div class="col-sm-4 text-center"><span>Normal</span></div>
+                            <div class="col-sm-4 text-right"><span>Quase Sempre Cansado</span></div>
+                        </div>
+                        <input type="range" class="custom-range" disabled value="{{registration.fatigue}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="customRange2">Qualidade Sono</label>
+                        <div class="row">
+                            <div class="col-sm-4 text-left"><span>Muito Descansado</span></div> 
+                            <div class="col-sm-4 text-center"><span>Dificulade em Adormecer</span></div>
+                            <div class="col-sm-4 text-right"><span>Insonia</span></div>
+                        </div>
+                        <input type="range" class="custom-range custom-range-danger" disabled value="{{registration.sleep_quality}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="customRange3">Dores Musculares</label>
+                        <div class="row">
+                            <div class="col-sm-4 text-left"><span>Sentindo se Bem</span></div> 
+                            <div class="col-sm-4 text-center"><span>Normal</span></div>
+                            <div class="col-sm-4 text-right"><span>Muitas Dores Musculares</span></div>
+                        </div>
+                        <input type="range" class="custom-range custom-range-teal" disabled value="{{registration.muscle_soreness}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customRange3">Nivel Stress</label>
+                        <div class="row">
+                            <div class="col-sm-4 text-left"><span>Muito relaxado</span></div> 
+                            <div class="col-sm-4 text-center"><span>Normal</span></div>
+                            <div class="col-sm-4 text-right"><span>Altamente stressado</span></div>
+                        </div>
+                        <input type="range" class="custom-range custom-range-teal" disabled value="{{registration.stress_level}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customRange3">Mood</label>
+                        <div class="row">
+                            <div class="col-sm-4 text-left"><span>Muito Positivo e Motivado</span></div> 
+                            <div class="col-sm-4 text-center"><span>Normal</span></div>
+                            <div class="col-sm-4 text-right"><span>Altamente irritável, aborrecido e em baixo</span></div>
+                        </div>
+                        <input type="range" class="custom-range custom-range-teal" disabled value="{{registration.mood}}">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+{% endblock content %}

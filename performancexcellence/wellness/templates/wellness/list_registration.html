@@ -1,0 +1,77 @@
+{% extends 'main.html' %}
+{% load static%}
+{% block content %}
+<br>
+
+
+        <div class="text-right">
+            <div class="text-right">
+                <select class="custom-select" name="athlete_selection" onchange="redirectToEvent()" >
+                    <option {% if athlete_id is None %}selected{% endif %} disabled>Selecionar Atleta</option>
+                    {% for athlete in athlete_list %}
+                        <option {% if athlete_name == athlete.profile.name %}selected{% endif %} value="{{ athlete.profile.name }}">{{ athlete.profile.name }} </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            {% for register in register_list %}
+                {% if register.average <= 30 %}
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>{{athlete_name}}</h3>
+                            <p>{{ register.registation_date|date:"D, d M Y" }}</p>
+                            <p>Average: {{ register.average }}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="{% url 'show_registration' register.id %}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                {% elif register.average > 30 and register.average <= 70 %}
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>{{athlete_name}}</h3>
+                            <p>{{ register.registation_date|date:"D, d M Y" }}</p>
+                            <p>Average: {{ register.average }}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="{% url 'show_registration' register.id %}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>{{athlete_name}}</h3>
+                            <p>{{ register.registation_date|date:"D, d M Y" }}</p>
+                            <p>Average: {{ register.average }}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="{% url 'show_registration' register.id %}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+
+<script>
+    function redirectToEvent() {
+        var selectedAthlete = document.querySelector('select[name="athlete_selection"]').value;
+        var url = "{% url 'wellness_registrations' %}?athlete=" + encodeURIComponent(selectedAthlete);
+        window.location.href = url;
+    }
+    </script>
+{% endblock content %}
