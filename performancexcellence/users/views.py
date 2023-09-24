@@ -9,6 +9,10 @@ from django.db.models import Q
 from .models import Profile
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
+from athletes.models import Athlete
+from wellness.models import WellnessDaily
+from athletes.athletics_functions import *
+from training_programme.models import TrainingProgramme
 
 def about(request):
     # Se você quiser passar variáveis para o template, você pode fazê-lo aqui
@@ -53,9 +57,26 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def home(request):
-    profiles = Profile.objects.all()
-    context = {'profiles': profiles}
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user)
+    athlete = Athlete.objects.get(profile=profile)
+    last_wellness_registration = WellnessDaily.objects.filter(athlete=athlete).last()
+    wellness_graph = wellness(athlete.id)
+    wellness_json = str(wellness_graph)
+    training_programme = TrainingProgramme.objects.filter(athlete=athlete, date=date.today()).first()
+    warmup = training_programme.warmup.split(';')
+    main = training_programme.main.split(';')
+    cooldown = training_programme.cool_down.split(';')
+    obs = training_programme.obs.split(';')
+    context = {'wellness_json': wellness_json,
+               'last_wellness_registration': last_wellness_registration,
+               "training_programme": training_programme,
+               "warmup": warmup,
+               "main": main,
+               "cooldown": cooldown,
+               "obs": obs}
     return render(request, 'users/home.html', context)
+
 
 def editAccount(request, pk):
     profile = Profile.objects.get(user=pk)
@@ -126,4 +147,3 @@ def editAccount(request, pk):
                'gender_choices': gender_choices,
                'event_group_choices': event_group_choices}
     return render(request, 'users/edit_profile.html', context)
-

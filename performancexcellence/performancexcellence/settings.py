@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'competitions.apps.CompetitionsConfig',
     'staffs.apps.StaffsConfig',
     'wellness.apps.WellnessConfig',
-    'control_evaluation.apps.ControlEvaluationConfig'
+    'control_evaluation.apps.ControlEvaluationConfig',
+    'physiology.apps.PhysiologyConfig',
+    'training_programme.apps.TrainingProgrammeConfig'
 ]
 
 MIDDLEWARE = [

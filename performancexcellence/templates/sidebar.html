@@ -22,14 +22,14 @@
       </div>
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item ">
-                <a href="{% url 'athletes_list' %}" class="nav-link">
+            <li class="nav-item">
+                <a href="{% url 'athletes_list' %}" class="nav-link {% url 'athletes_list' as athletes_list_url %}{% if request.path == athletes_list_url %}active{% endif %}">
                   <i class="fas fa-users"></i>
                   <p>Todos os Atletas</p>
                 </a>
             </li>
             <li class="nav-item ">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link {% url 'daily_registration' user.id as daily_registration_url %}{% if request.path == daily_registration_url %}active{% endif %}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Wellness
@@ -46,7 +46,7 @@
             </ul>
           </li>
           <li class="nav-item ">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link {% url 'add_strength_test' as daily_registration_url %}{% if request.path == daily_registration_url %}active{% endif %}">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Controlo de Treino
@@ -82,7 +82,47 @@
           </li>
           <li class="nav-item ">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
+              <i class="nav-icon far fa-plus-square"></i>
+              <p>
+                Fisiologia
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'create_evaluation' %}" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Submeter Avaliação</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                Plano de Treino
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'create_programme' %}" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inserir Plano</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Objetivos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-file"></i>
               <p>
                 Academia Olímpica
                 <i class="right fas fa-angle-left"></i>

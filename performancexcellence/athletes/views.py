@@ -51,3 +51,4 @@ def athletes_list(request):
     context = {'athletes': athletes,
                'page_items': page_items}
     return render(request, 'athletes/athletes_list.html', context)
+

@@ -1,0 +1,79 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <form class="form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.athlete.id_for_label }}">{{ form.athlete.label }}</label>
+            {{ form.athlete }}
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
+                {{ form.date }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="{{ form.hours.id_for_label }}">{{ form.hours.label }}</label>
+                {{ form.hours }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="{{ form.local.id_for_label }}">{{ form.local.label }}</label>
+                {{ form.local }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="{{ form.intensity.id_for_label }}">{{ form.intensity.label }}</label>
+                {{ form.intensity }}
+            </div>
+        </div>
+
+        <div class="card card-success" id="warmup-section">
+            <div class="card-header ui-sortable-handle">
+                <h3>WarmUp</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    {{ form.warmup }}
+                </div>
+            </div>
+        </div>
+        <div class="card card-danger" id="main-section">
+            <div class="card-header ui-sortable-handle">
+                <h3>Main</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    {{ form.main }}
+                </div>
+            </div>
+        </div>
+        <div class="card card-info" id="cool-down-section">
+            <div class="card-header ui-sortable-handle">
+                <h3>Cool Down</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    {{ form.cool_down }}
+                </div>
+            </div>
+        </div>
+        <div class="card card-warning" id="obs-section">
+            <div class="card-header ui-sortable-handle">
+                <h3>Observações</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    {{ form.obs}}
+                </div>
+            </div>
+        </div>
+        <div class="content-box">
+            <input class="btn btn-primary float-right" type="submit" name="submit" value="Confirmar" />
+        </div>
+    </form>
+ <br>
+<br>
+{% endblock content %}

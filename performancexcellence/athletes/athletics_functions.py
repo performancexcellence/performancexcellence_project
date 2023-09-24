@@ -5,6 +5,7 @@ from django.db.models import OuterRef, Subquery
 from django.db.models import Max, Case, When, Value, CharField, Q, F
 from django.db.models.functions import Coalesce, Substr
 from competitions.models import Competition, CompetitionEvent
+from datetime import date, timedelta
 from datetime import datetime
 import pandas as pd
 from wellness.models import WellnessDaily
@@ -115,3 +116,8 @@ def wellness(athlete_id):
         result_dict["registration_date"].append(registration_date)
 
     return result_dict
+
+
+
+
+

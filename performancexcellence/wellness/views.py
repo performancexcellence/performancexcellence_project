@@ -13,7 +13,6 @@ def daily_registration(request, pk):
     athlete = Athlete.objects.get(profile=profile)
     if request.method == 'POST':
         weight = request.POST.get('weight')
-        heart_rate = request.POST.get('heart_rate')
         fatigue = request.POST.get('fatigue')
         sleep = request.POST.get('sleep')
         soreness = request.POST.get('soreness')
@@ -24,7 +23,6 @@ def daily_registration(request, pk):
         WellnessDaily.objects.create(
             athlete_id=athlete.id,
             weight=weight,
-            heart_rate=heart_rate,
             fatigue=fatigue,
             sleep_quality=sleep,
             muscle_soreness=soreness,
