@@ -17,3 +17,9 @@ class TrainingProgrammeForm(forms.ModelForm):
             'cool_down': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Separar os conteudos do treino por ;'}),
             'obs': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Separar os conteudos do treino por ;'}),
         }
+        labels = {
+            'athlete': 'Atleta',
+            'date': 'Data',
+            'hours': 'Horas do Treino',
+            'intensity': 'Intensidade Subjetiva do Treino'
+        }
