@@ -64,10 +64,22 @@ def home(request):
     wellness_graph = wellness(athlete.id)
     wellness_json = str(wellness_graph)
     training_programme = TrainingProgramme.objects.filter(athlete=athlete, date=date.today()).first()
-    warmup = training_programme.warmup.split(';')
-    main = training_programme.main.split(';')
-    cooldown = training_programme.cool_down.split(';')
-    obs = training_programme.obs.split(';')
+    if training_programme is not None:
+        warmup = training_programme.warmup.split(';')
+    else:
+        warmup = ["Sem plano"]
+    if training_programme is not None:
+        main = training_programme.main.split(';')
+    else:
+        main = ["Sem plano"]
+    if training_programme is not None:
+        cooldown = training_programme.cool_down.split(';')
+    else:
+        cooldown = ["Sem plano"]
+    if training_programme is not None:
+        obs = training_programme.obs.split(';')
+    else:
+        obs = ["Sem plano"]
     context = {'wellness_json': wellness_json,
                'last_wellness_registration': last_wellness_registration,
                "training_programme": training_programme,
