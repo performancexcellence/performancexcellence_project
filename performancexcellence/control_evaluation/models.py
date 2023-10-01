@@ -21,7 +21,7 @@ class Strength(models.Model):
     peak_velocity = models.JSONField(default=list, blank=True, null=True)  
     rom = models.JSONField(default=list, blank=True, null=True)  
     mean_power = models.JSONField(default=list, blank=True, null=True)  
-
+    
     def __str__(self):
         return f"{self.athlete} - {self.exercise} - {self.date}"
 
@@ -60,3 +60,6 @@ class Speed(models.Model):
     date = models.DateField(null=True, blank=True)
     distance = models.JSONField(default=list, blank=True, null=True)  
     time = models.JSONField(default=list, blank=True, null=True)  
+    
+    def __str__(self):
+        return f"{self.athlete} - {self.date}"

@@ -40,7 +40,44 @@ class StrengthForm(forms.ModelForm):
             'sets': 'Série',
         }
 
+
 class SpeedForm(forms.ModelForm):
+    time_reacao = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    time_10m = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    time_20m = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    time_30m = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    time_40m = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Speed
-        fields = ['athlete', 'evaluation_choice', 'date', 'distance', 'time']
+        fields = '__all__'
+        widgets = {
+            'athlete': forms.Select(attrs={'class': 'form-control'}),
+            'evaluation_choice': forms.Select(attrs={'class': 'form-control'}),
+            'date': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'yyyy-MM-dd'}),
+            'partial_reacao': forms.HiddenInput(),
+            'partial_10m': forms.HiddenInput(),
+            'partial_20m': forms.HiddenInput(),
+            'partial_30m': forms.HiddenInput(),
+            'partial_40m': forms.HiddenInput(),
+        }
+        labels = {
+            'athlete': 'Atleta',
+            'evaluation_choice': 'Tipo de Avaliação',
+            'date': 'Data (yyyy-MM-dd)',
+        }
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        # Crie arrays de tempos e distâncias com os campos individuais
+        cleaned_data['time'] = [
+            cleaned_data.get('time_reacao', None),
+            cleaned_data.get('time_10m', None),
+            cleaned_data.get('time_20m', None),
+            cleaned_data.get('time_30m', None),
+            cleaned_data.get('time_40m', None)
+        ]
+        # Assumindo que as distâncias são constantes, você pode definir diretamente
+        cleaned_data['distance'] = [0, 10, 20, 30, 40]
+
+        return cleaned_data
