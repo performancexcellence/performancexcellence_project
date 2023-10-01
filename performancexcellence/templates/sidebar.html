@@ -23,13 +23,13 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                <a href="{% url 'athletes_list' %}" class="nav-link {% url 'athletes_list' as athletes_list_url %}{% if request.path == athletes_list_url %}active{% endif %}">
+              <a href="{% url 'athletes_list' %}" class="nav-link {% if '/athlete/' in request.path %}active{% endif %}">
                   <i class="fas fa-users"></i>
                   <p>Todos os Atletas</p>
                 </a>
             </li>
             <li class="nav-item ">
-            <a href="#" class="nav-link {% url 'daily_registration' user.id as daily_registration_url %}{% if request.path == daily_registration_url %}active{% endif %}">
+              <a href="#" class="nav-link {% if '/wellness/' in request.path %}active{% endif %}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Wellness
@@ -46,7 +46,7 @@
             </ul>
           </li>
           <li class="nav-item ">
-            <a href="#" class="nav-link {% url 'add_strength_test' as daily_registration_url %}{% if request.path == daily_registration_url %}active{% endif %}">
+            <a href="#" class="nav-link {% if '/control-evaluation/' in request.path %}active{% endif %}">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Controlo de Treino
@@ -81,7 +81,7 @@
             </ul>
           </li>
           <li class="nav-item ">
-            <a href="#" class="nav-link">
+              <a href="#" class="nav-link {% if '/physiology/' in request.path %}active{% endif %}">
               <i class="nav-icon far fa-plus-square"></i>
               <p>
                 Fisiologia
@@ -98,7 +98,7 @@
             </ul>
           </li>
           <li class="nav-item ">
-            <a href="#" class="nav-link">
+              <a href="#" class="nav-link {% if '/training-programme/' in request.path %}active{% endif %}">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Plano de Treino
@@ -121,7 +121,7 @@
             </ul>
           </li>
           <li class="nav-item ">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link {% if '/nutrition/' in request.path %}active{% endif %}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Nutrição
@@ -138,7 +138,7 @@
             </ul>
           </li>
           <li class="nav-item ">
-            <a href="#" class="nav-link">
+              <a href="" class="nav-link {% if '/about/' in request.path %}active{% endif %}">
               <i class="nav-icon fas fa-file"></i>
               <p>
                 Academia Olímpica
