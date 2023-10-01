@@ -57,12 +57,15 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def home(request):
+    last_7_days = date.today() - timedelta(days=7)
+    start_date = datetime(last_7_days.year, last_7_days.month, last_7_days.day, 0, 0, 0)
+    end_date = datetime(date.today().year, date.today().month, date.today().day, 23, 59, 59)
     current_user = request.user
     profile = Profile.objects.get(user=current_user)
     athlete = Athlete.objects.get(profile=profile)
-    last_wellness_registration = WellnessDaily.objects.filter(athlete=athlete).last()
-    wellness_graph = wellness(athlete.id)
-    wellness_json = str(wellness_graph)
+    wellness_registers = WellnessDaily.objects.filter(athlete=athlete.id, registration_date__gte=start_date, registration_date__lte=end_date)
+    wellness_7days = get_welness_7days(wellness_registers)
+    wellness_graph = wellness(wellness_registers)
     training_programme = TrainingProgramme.objects.filter(athlete=athlete, date=date.today()).first()
     if training_programme is not None:
         warmup = training_programme.warmup.split(';')
@@ -80,8 +83,8 @@ def home(request):
         obs = training_programme.obs.split(';')
     else:
         obs = ["Sem plano"]
-    context = {'wellness_json': wellness_json,
-               'last_wellness_registration': last_wellness_registration,
+    context = {'wellness_7days': wellness_7days,
+               "wellness_data": wellness_graph,
                "training_programme": training_programme,
                "warmup": warmup,
                "main": main,
@@ -159,3 +162,16 @@ def editAccount(request, pk):
                'gender_choices': gender_choices,
                'event_group_choices': event_group_choices}
     return render(request, 'users/edit_profile.html', context)
+
+def get_welness_7days(wellness_registers):
+    wellness_7days = wellness(wellness_registers)
+    weight = round(sum(wellness_7days["weight"])/len(wellness_7days["weight"]),0)
+    nutrition = round(sum(wellness_7days["nutrition"])/len(wellness_7days["nutrition"]),0)
+    fatigue = round(sum(wellness_7days["fatigue"])/len(wellness_7days["fatigue"]),0)
+    sleep_quality = round(sum(wellness_7days["sleep_quality"])/len(wellness_7days["sleep_quality"]),0)
+    soreness = round(sum(wellness_7days["soreness"])/len(wellness_7days["soreness"]),0)
+    stress = round(sum(wellness_7days["stress"])/len(wellness_7days["stress"]),0)
+    hydration = round(sum(wellness_7days["hydration"])/len(wellness_7days["hydration"]),0)
+    mood = round(sum(wellness_7days["mood"])/len(wellness_7days["mood"]),0)
+    hours_sleep = round(sum(wellness_7days["sleep_hours"])/len(wellness_7days["sleep_hours"]),0)
+    return {"weight": weight, "nutrition": nutrition, "fatigue": fatigue, "sleep_quality": sleep_quality, "soreness": soreness, "stress": stress, "hydration": hydration, "mood": mood, "hours_sleep": hours_sleep}

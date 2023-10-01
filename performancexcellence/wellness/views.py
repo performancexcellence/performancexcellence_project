@@ -20,6 +20,7 @@ def daily_registration(request, pk):
         mood = request.POST.get('mood')
         hydration = request.POST.get('hydration')
         nutrition = request.POST.get('nutrition')
+        hours_sleep = request.POST.get('hours_sleep')
 
         # Create a new WellnessDaily instance and assign values
         WellnessDaily.objects.create(
@@ -32,6 +33,7 @@ def daily_registration(request, pk):
             mood=mood,
             hydration=hydration,
             nutrition=nutrition,
+            hours_sleep = hours_sleep,
             registration_date=datetime.now().date()  # Corrected 'registation_date' to 'registration_date'
         )
         

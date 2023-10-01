@@ -6,6 +6,8 @@ import uuid
 class Profile(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile_user', null=True, blank=True)
+    is_athlete = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     name = models.CharField(max_length=200, blank=True, null=True)
     username = models.CharField(max_length=200, blank=True, null=True)
     email = models.CharField(max_length=200, blank=True, null=True)

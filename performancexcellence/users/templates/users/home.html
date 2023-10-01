@@ -6,7 +6,7 @@
    <div class="col-lg-2 col-6">
       <div class="small-box bg-info">
          <div class="inner">
-            <h3>{{last_wellness_registration.weight}}<sup style="font-size: 20px">Kg</sup></h3>
+            <h3>{{ wellness_7days.weight }} <sup style="font-size: 20px">Kg</sup></h3>
             <p>Peso</p>
          </div>
          <div class="icon">
@@ -17,7 +17,7 @@
    <div class="col-lg-2 col-6">
         <div class="small-box {% if last_wellness_registration.fatigue >= 75 %}bg-danger{% elif last_wellness_registration.fatigue >= 60 %}bg-warning{% else %}bg-success{% endif %}">
         <div class="inner">
-            <h3>{{last_wellness_registration.fatigue}}<sup style="font-size: 20px">%</sup></h3>
+            <h3>{{wellness_7days.fatigue}}<sup style="font-size: 20px">%</sup></h3>
             <p>Fadiga</p>
         </div>
         <div class="icon">
@@ -28,7 +28,7 @@
    <div class="col-lg-2 col-6">
       <div class="small-box {% if last_wellness_registration.sleep_quality >= 75 %}bg-danger{% elif last_wellness_registration.sleep_quality >= 60 %}bg-warning{% else %}bg-success{% endif %}">
          <div class="inner">
-            <h3>{{last_wellness_registration.sleep_quality}}<sup style="font-size: 20px">%</sup></h3>
+            <h3>{{wellness_7days.sleep_quality}}<sup style="font-size: 20px">%</sup></h3>
             <p>Qualidade Sono</p>
          </div>
          <div class="icon">
@@ -39,7 +39,7 @@
    <div class="col-lg-2 col-6">
       <div class="small-box {% if last_wellness_registration.muscle_soreness >= 75 %}bg-danger{% elif last_wellness_registration.muscle_soreness >= 60 %}bg-warning{% else %}bg-success{% endif %}">
          <div class="inner">
-            <h3>{{last_wellness_registration.muscle_soreness}}<sup style="font-size: 20px">%</sup></h3>
+            <h3>{{wellness_7days.soreness}}<sup style="font-size: 20px">%</sup></h3>
             <p>Dores Musculares</p>
          </div>
          <div class="icon">
@@ -50,7 +50,7 @@
    <div class="col-lg-2 col-6">
       <div class="small-box {% if last_wellness_registration.stress_level >= 75 %}bg-danger{% elif last_wellness_registration.stress_level >= 60 %}bg-warning{% else %}bg-success{% endif %}">
          <div class="inner">
-            <h3>{{last_wellness_registration.stress_level}}<sup style="font-size: 20px">%</sup></h3>
+            <h3>{{ wellness_7days.stress }}<sup style="font-size: 20px">%</sup></h3>
             <p>Nivel de Stress</p>
          </div>
          <div class="icon">
@@ -61,7 +61,7 @@
    <div class="col-lg-2 col-6">
       <div class="small-box {% if last_wellness_registration.mood >= 75 %}bg-danger{% elif last_wellness_registration.mood >= 60 %}bg-warning{% else %}bg-success{% endif %}">
          <div class="inner">
-            <h3>{{last_wellness_registration.mood}}<sup style="font-size: 20px">%</sup></h3>
+            <h3>{{ wellness_7days.mood }}<sup style="font-size: 20px">%</sup></h3>
             <p>Mood</p>
          </div>
          <div class="icon">
@@ -70,6 +70,7 @@
       </div>
    </div>
 </div>
+    <span>Média dos Últimos 7 dias</span>
 
 <div class="card card-primary">
     <div class="card-header">
