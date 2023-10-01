@@ -1,33 +1,110 @@
-<!-- strength_form.html -->
 {% extends 'main.html' %}
 
 {% block content %}
-{% load static%}
+{% load static %}
 
 <br>
-  
- 
-    <div class="card">
-        <div class="card-header ui-sortable-handle">
-            <h3>Dados</h3>
-        </div>
-        <div class="card-body">
-            {% if form.errors %}
-            <div class="alert alert-danger">
-                <strong>Erro no formulário:</strong> Por favor, corrija os seguintes erros:<br>
-                {% for field, errors in form.errors.items %}
-                    <strong>{{ field }}:</strong> {{ errors|join:", " }}<br>
-                {% endfor %}
+<div class="card">
+    <div class="card-header ui-sortable-handle">
+        <h3>Velocidade</h3>
+    </div>
+    <div class="card-body">
+        <form id="form" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="{{ form.athlete.id_for_label }}">{{ form.athlete.label }}</label>
+                {{ form.athlete }}
             </div>
-            {% endif %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Salvar</button>
-            </form>
+
+            <div class="form-group">
+                <label for="{{ form.evaluation_choice.id_for_label }}">{{ form.evaluation_choice.label }}</label>
+                {{ form.evaluation_choice }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
+                {{ form.date }}
+            </div>
+
+            <div class="card">
+                <div class="card-header ui-sortable-handle">
+                    <h3>Dados</h3>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Erro no formulário:</strong> Por favor, corrija os seguintes erros:<br>
+                        {% for field, errors in form.errors.items %}
+                        <strong>{{ field }}:</strong> {{ errors|join:", " }}<br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th>Distância</th>
+                                <th colspan="2">0m [Reação]</th>
+                                <th colspan="2">10m</th>
+                                <th colspan="2">20m</th>
+                                <th colspan="2">30m</th>
+                                <th colspan="2">40m</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tempo/Parcial</td>
+                                <td><input name="time_reacao" type="numeric"></td>
+                                <td><input id="partial_reacao" type="text" disabled></td>
+                                <td><input name="time_10m" type="numeric"></td>
+                                <td><input id="partial_10m" type="text" disabled></td>
+                                <td><input name="time_20m" type="numeric"></td>
+                                <td><input id="partial_20m" type="text" disabled></td>
+                                <td><input name="time_30m" type="numeric"></td>
+                                <td><input id="partial_30m" type="text" disabled></td>
+                                <td><input name="time_40m" type="numeric"></td>
+                                <td><input id="partial_40m" type="text" disabled></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-right">Guardar</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Função para atualizar os parciais baseada nos tempos inseridos
+        function updatePartials() {
+            let time_reacao = parseFloat(document.querySelector('input[name="time_reacao"]').value) || 0;
+            let time_10m = parseFloat(document.querySelector('input[name="time_10m"]').value) || 0;
+            let time_20m = parseFloat(document.querySelector('input[name="time_20m"]').value) || 0;
+            let time_30m = parseFloat(document.querySelector('input[name="time_30m"]').value) || 0;
+            let time_40m = parseFloat(document.querySelector('input[name="time_40m"]').value) || 0;
+
+            document.querySelector('#partial_reacao').value = time_reacao.toFixed(2); // Reação é o próprio tempo
+            document.querySelector('#partial_10m').value = (time_10m - time_reacao).toFixed(2);
+            document.querySelector('#partial_20m').value = (time_20m - time_10m).toFixed(2);
+            document.querySelector('#partial_30m').value = (time_30m - time_20m).toFixed(2);
+            document.querySelector('#partial_40m').value = (time_40m - time_30m).toFixed(2);
+        }
+    
+        // Atualizar os parciais sempre que um valor de tempo for alterado
+        document.querySelector('input[name="time_reacao"]').addEventListener('input', updatePartials);
+        document.querySelector('input[name="time_10m"]').addEventListener('input', updatePartials);
+        document.querySelector('input[name="time_20m"]').addEventListener('input', updatePartials);
+        document.querySelector('input[name="time_30m"]').addEventListener('input', updatePartials);
+        document.querySelector('input[name="time_40m"]').addEventListener('input', updatePartials);
+    });    
+</script>
+<style>
+</style>
 
 
 

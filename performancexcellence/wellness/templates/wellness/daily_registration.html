@@ -6,14 +6,27 @@
 <!-- Main Section -->
 <form class="form" method="POST" action="#" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="card card-success">
-        <div class="card-header">
-            <h3 class="card-title">Controlo Peso</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Controlo Peso</h3>
+                </div>
+                <div class="card-body">
+                    <input class="form-control form-control-lg" type="float" placeholder="Peso" name="weight">
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <input class="form-control form-control-lg" type="float" placeholder="Peso" name="weight">
+        <div class="col-md-6">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Horas Dormidas</h3>
+                </div>
+                <div class="card-body">
+                    <input class="form-control form-control-lg" type="float" placeholder="Valor em Horas" name="hours_sleep">
+                </div>
+            </div>
         </div>
-
     </div>
     <div class="card card-secondary">
         <div class="card-header">
@@ -21,6 +34,7 @@
         </div>
 
         <div class="card-body">
+
             <div class="form-group">
                 <label for="customRange1">Fadiga</label>
                 <div class="row">

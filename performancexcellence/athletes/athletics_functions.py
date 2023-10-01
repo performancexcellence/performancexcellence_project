@@ -95,29 +95,38 @@ def personal_bests(athlete_id):
 
     return records_list
 
-def wellness(athlete_id):
-    wellness_registers = WellnessDaily.objects.filter(athlete=athlete_id)
-    results_df = pd.DataFrame(list(wellness_registers.values()))
-    result_dict = {"mood": [], "stress_levels": [], "sleep_quality": [], "muscle_soreness": [], "fatigue": [], "average": [], "registration_date": []}
-    for index, row in results_df.iterrows():
-        mood = row['mood']
-        stress_levels = row['stress_level']
-        sleep_quality = row['sleep_quality']
-        muscle_soreness = row['muscle_soreness']
-        fatigue = row['fatigue']
-        registration_date = row['registration_date'].strftime("%Y-%m-%d")
-        average = (mood + stress_levels +sleep_quality+muscle_soreness+fatigue)/5
-        result_dict["mood"].append(mood)
-        result_dict["stress_levels"].append(stress_levels)
-        result_dict["sleep_quality"].append(sleep_quality)
-        result_dict["muscle_soreness"].append(muscle_soreness)
-        result_dict["fatigue"].append(fatigue)
-        result_dict["average"].append(average)
-        result_dict["registration_date"].append(registration_date)
-
+def wellness(wellness_registers):
+    result_dict = {"weight": [], "mood": [], "stress": [], "sleep_quality": [], "soreness": [], "fatigue": [], "average": [], "registration_date": [], "hydration": [], "nutrition": [], "sleep_hours": []}
+    try:
+        # The `values()` method returns an iterator over the values of the dictionary, which is not iterable.
+        # To iterate over the values of the dictionary, use `iter(wellness_registers.values())`.
+        results_df = pd.DataFrame(list(iter(wellness_registers.values())))
+        for index, row in results_df.iterrows():
+            mood = row['mood']
+            stress_levels = row['stress_level']
+            sleep_quality = row['sleep_quality']
+            muscle_soreness = row['muscle_soreness']
+            fatigue = row['fatigue']
+            nutrition = row['nutrition']
+            hydration = row['hydration']
+            weight = row['weight']
+            sleep_hours = row['hours_sleep']
+            registration_date = row['registration_date'].strftime("%Y-%m-%d")
+            average = (mood + stress_levels + sleep_quality + muscle_soreness + fatigue + nutrition + hydration) / 7
+            result_dict["mood"].append(mood)
+            result_dict["stress"].append(stress_levels)
+            result_dict["sleep_quality"].append(sleep_quality)
+            result_dict["soreness"].append(muscle_soreness)
+            result_dict["fatigue"].append(fatigue)
+            result_dict["average"].append(average)
+            result_dict["registration_date"].append(registration_date)
+            result_dict["nutrition"].append(nutrition)
+            result_dict["weight"].append(weight)
+            result_dict["hydration"].append(hydration)
+            result_dict["sleep_hours"].append(sleep_hours)
+    except:
+        pass
     return result_dict
-
-
 
 
 

@@ -15,6 +15,6 @@ class WellnessDaily(models.Model):
     fatigue = models.IntegerField(default=50, blank=False, null=False)
     nutrition = models.IntegerField(default=50, blank=False, null=False)
     hydration = models.IntegerField(default=50, blank=False, null=False)
-
+    hours_sleep = models.FloatField(default=0, blank=False, null=False)
     def __str__(self):
         return f"{self.athlete.profile.name} - {self.registration_date}"
