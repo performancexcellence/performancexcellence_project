@@ -18,7 +18,9 @@ def daily_registration(request, pk):
         soreness = request.POST.get('soreness')
         stress = request.POST.get('stress')
         mood = request.POST.get('mood')
-        
+        hidration = request.POST.get('hidration')
+        nutrition = request.POST.get('nutrition')
+
         # Create a new WellnessDaily instance and assign values
         WellnessDaily.objects.create(
             athlete_id=athlete.id,
@@ -28,6 +30,8 @@ def daily_registration(request, pk):
             muscle_soreness=soreness,
             stress_level=stress,
             mood=mood,
+            hidration=hidration,
+            nutrition=nutrition,
             registration_date=datetime.now().date()  # Corrected 'registation_date' to 'registration_date'
         )
         

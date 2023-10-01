@@ -13,6 +13,8 @@ class WellnessDaily(models.Model):
     muscle_soreness =  models.IntegerField(default=50, blank=False, null=False)
     sleep_quality = models.IntegerField(default=50, blank=False, null=False)
     fatigue = models.IntegerField(default=50, blank=False, null=False)
+    nutrition = models.IntegerField(default=50, blank=False, null=False)
+    hidration = models.IntegerField(default=50, blank=False, null=False)
 
     def __str__(self):
         return f"{self.athlete.profile.name} - {self.registration_date}"

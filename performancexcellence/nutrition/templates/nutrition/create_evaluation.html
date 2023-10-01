@@ -1,0 +1,83 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<form class="form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <h3>Dados Antropométricos</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="{{ form.date.id_for_label }}">Data (yyyy-MM-dd)</label>
+                {{ form.date }}
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="{{ form.height.id_for_label }}">Altura (m)</label>
+                    {{ form.height }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="{{ form.weight.id_for_label }}">Peso (kg)</label>
+                    {{ form.weight }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="{{ form.body_fat.id_for_label }}">Gordura Corporal (%)</label>
+                    {{ form.body_fat }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="{{ form.lean_mass.id_for_label }}">Massa Magra (kg)</label>
+                    {{ form.lean_mass }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="{{ form.left_arm.id_for_label }}">Braço Esquerdo</label>
+                    {{ form.left_arm }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="{{ form.right_arm.id_for_label }}">Braço Direito</label>
+                    {{ form.right_arm }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="{{ form.trunk.id_for_label }}">Tronco</label>
+                    {{ form.trunk }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="{{ form.left_leg.id_for_label }}">Perna Esquerda</label>
+                    {{ form.left_leg }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="{{ form.right_leg.id_for_label }}">Perna Direita</label>
+                    {{ form.right_leg }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="{{ form.head.id_for_label }}">Cabeça</label>
+                    {{ form.head }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.metabolism.id_for_label }}">Metabolismo</label>
+                {{ form.metabolism }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.obs.id_for_label }}">Observações</label>
+                {{ form.obs }}
+            </div>
+        </div>
+    </div>
+    <div class="content-box">
+        <input class="btn btn-primary float-right" type="submit" name="submit" value="Confirmar" />
+    </div>
+</form>
+<br>
+<br>
+{% endblock content %}

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-qi*z#80aub9#zvaym%^gou4$#c%_a-66wlr*a7i&m_5a5545oe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['performancexcellence.onrender.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'wellness.apps.WellnessConfig',
     'control_evaluation.apps.ControlEvaluationConfig',
     'physiology.apps.PhysiologyConfig',
-    'training_programme.apps.TrainingProgrammeConfig'
+    'training_programme.apps.TrainingProgrammeConfig',
+    'nutrition.apps.NutritionConfig'
 ]
 
 MIDDLEWARE = [
