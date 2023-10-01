@@ -14,7 +14,7 @@
           <!-- Display a default image if the user doesn't have a profile image -->
           <img src="{% static 'profiles/profile_default.jpg' %}" class="img-circle elevation-2" alt="User Image">
           {% endif %}
-  
+
         </div>
         <div class="info">
           <a href="{% url 'edit-account' user.id %}" class="d-block">{{user.first_name}} {{user.last_name}}</a>
@@ -116,6 +116,23 @@
                 <a href="#" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Objetivos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Nutrição
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'create_nutrition_evaluation' %}" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Avaliação</p>
                 </a>
               </li>
             </ul>

@@ -27,4 +27,5 @@ urlpatterns = [
     path('physiology/', include('physiology.urls')),
     path('control-evaluation/', include('control_evaluation.urls')),
     path('training-programme/', include('training_programme.urls')),
+    path('nutrition/', include('nutrition.urls')),
 ]
