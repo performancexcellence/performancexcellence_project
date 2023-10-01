@@ -8,13 +8,13 @@ class WellnessDaily(models.Model):
     athlete = models.ForeignKey(Athlete, on_delete=models.CASCADE, related_name='athlete_profile', null=True, blank=True)
     weight = models.FloatField(default=0, blank=False, null=False)
     registration_date = models.DateField()
-    mood =  models.IntegerField(default=50, blank=False, null=False)
-    stress_level =  models.IntegerField(default=50, blank=False, null=False)
-    muscle_soreness =  models.IntegerField(default=50, blank=False, null=False)
+    mood = models.IntegerField(default=50, blank=False, null=False)
+    stress_level = models.IntegerField(default=50, blank=False, null=False)
+    muscle_soreness = models.IntegerField(default=50, blank=False, null=False)
     sleep_quality = models.IntegerField(default=50, blank=False, null=False)
     fatigue = models.IntegerField(default=50, blank=False, null=False)
     nutrition = models.IntegerField(default=50, blank=False, null=False)
-    hidration = models.IntegerField(default=50, blank=False, null=False)
+    hydration = models.IntegerField(default=50, blank=False, null=False)
 
     def __str__(self):
         return f"{self.athlete.profile.name} - {self.registration_date}"
