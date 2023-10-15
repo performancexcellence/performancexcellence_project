@@ -14,14 +14,6 @@ from wellness.models import WellnessDaily
 from athletes.athletics_functions import *
 from training_programme.models import TrainingProgramme
 
-def about(request):
-    # Se você quiser passar variáveis para o template, você pode fazê-lo aqui
-    context = {
-    }
-    
-    # Renderize o template com o contexto e retorne a resposta
-    return render(request, 'users/about.html', context)
-
 # Create your views here.
 def loginUser(request):
     page = 'login'
@@ -146,7 +138,8 @@ def editAccount(request, pk):
         user.first_name = first_name
         user.last_name = last_name
         profile.email = email
-        profile.name = user.first_name
+        profile.first_name = user.first_name
+        profile.last_name = user.last_name
         profile.gender = gender
         profile.birth_date = birth_date
         profile.birth_place = birth_place
@@ -165,13 +158,21 @@ def editAccount(request, pk):
 
 def get_welness_7days(wellness_registers):
     wellness_7days = wellness(wellness_registers)
-    weight = round(sum(wellness_7days["weight"])/len(wellness_7days["weight"]),0)
-    nutrition = round(sum(wellness_7days["nutrition"])/len(wellness_7days["nutrition"]),0)
-    fatigue = round(sum(wellness_7days["fatigue"])/len(wellness_7days["fatigue"]),0)
-    sleep_quality = round(sum(wellness_7days["sleep_quality"])/len(wellness_7days["sleep_quality"]),0)
-    soreness = round(sum(wellness_7days["soreness"])/len(wellness_7days["soreness"]),0)
-    stress = round(sum(wellness_7days["stress"])/len(wellness_7days["stress"]),0)
-    hydration = round(sum(wellness_7days["hydration"])/len(wellness_7days["hydration"]),0)
-    mood = round(sum(wellness_7days["mood"])/len(wellness_7days["mood"]),0)
-    hours_sleep = round(sum(wellness_7days["sleep_hours"])/len(wellness_7days["sleep_hours"]),0)
+    weight = round(sum(wellness_7days["weight"])/len(wellness_7days["weight"]),2)
+    nutrition = round(sum(wellness_7days["nutrition"])/len(wellness_7days["nutrition"]),2)
+    fatigue = round(sum(wellness_7days["fatigue"])/len(wellness_7days["fatigue"]),2)
+    sleep_quality = round(sum(wellness_7days["sleep_quality"])/len(wellness_7days["sleep_quality"]),2)
+    soreness = round(sum(wellness_7days["soreness"])/len(wellness_7days["soreness"]),2)
+    stress = round(sum(wellness_7days["stress"])/len(wellness_7days["stress"]),2)
+    hydration = round(sum(wellness_7days["hydration"])/len(wellness_7days["hydration"]),2)
+    mood = round(sum(wellness_7days["mood"])/len(wellness_7days["mood"]),2)
+    hours_sleep = round(sum(wellness_7days["sleep_hours"])/len(wellness_7days["sleep_hours"]),2)
     return {"weight": weight, "nutrition": nutrition, "fatigue": fatigue, "sleep_quality": sleep_quality, "soreness": soreness, "stress": stress, "hydration": hydration, "mood": mood, "hours_sleep": hours_sleep}
+
+def about(request):
+    # Se você quiser passar variáveis para o template, você pode fazê-lo aqui
+    context = {
+    }
+
+    # Renderize o template com o contexto e retorne a resposta
+    return render(request, 'users/about.html', context)

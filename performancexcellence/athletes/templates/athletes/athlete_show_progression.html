@@ -1,0 +1,180 @@
+{% extends 'main.html' %}
+{% load static%}
+
+{% block content %}
+
+<br>
+
+
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img src="{{ profile.profile_image.url }}" alt="user-avatar" class="img-circle img-fluid">
+                        </div>
+
+                        <h3 class="profile-username text-center">{{profile.first_name}} {{profile.last_name}}</h3>
+
+                        <hr>
+                        <p class="text-center">{{athlete.event_group}}</p>
+                        <hr>
+
+                        <a href="{{ athlete.url_world_athletics }}" class="btn btn-primary btn-block"><b>Perfil World
+                            Athletics</b></a>
+                        <br>
+                        <a href="{{ athlete.url_fpacompeticoes }}" class="btn btn-secondary btn-block"><b>Perfil
+                            FPACompetições</b></a>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+                <!-- About Me Box -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Sobre mim:</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <strong><i class="fas fa-book mr-1"></i> Treinador:</strong>
+
+                        <p class="text-muted">
+                            {{ athlete.main_coach}}
+                        </p>
+
+                        <hr>
+
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i>Clube:</strong>
+
+                        <p class="text-muted">{{ athlete.team_name}}</p>
+
+                        <hr>
+
+                        <strong><i class="fas fa-pencil-alt mr-1"></i> Equipa:</strong>
+
+                        <ul class="text-muted">
+                            {% if athlete.psychologist %}
+                            <li class="tag tag-danger">Psicologo: {{ athlete.psychologist}}</li>
+                            {%endif%}
+                            {% if athlete.second_coach %}
+                            <li class="tag tag-danger">Treinador Adjunto: {{ athlete.second_coach}}</li>
+                            {%endif%}
+                            {% if athlete.agent %}
+                            <li class="tag tag-success">Agente Desportigo: {{athlete.agent}}</li>
+                            {%endif%}
+                            {% if athlete.physiotherapist %}
+                            <li class="tag tag-info">Fisioterapeuta: {{athlete.physiotherapist}}</li>
+                            {%endif%}
+                            {% if athlete.doctor %}
+                            <li class="tag tag-warning">Médico: {{athlete.doctor}}</li>
+                            {%endif%}
+                            {% if athlete.nutritionist %}
+                            <li class="tag tag-primary">Nutricionista: {{athlete.nutritionist}}</li>
+                            {%endif%}
+                        </ul>
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'show_athlete' athlete.id %}">Currículo Desportivo</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'show_athlete_personal_records' athlete.id %}">
+                                Recordes Pessoais
+                            </a></li>
+                            <li class="nav-item"><a
+                                    class="nav-link active"
+                                    href="{% url 'show_athlete_progression' athlete.id %}">
+                                Progressão
+                            </a></li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    Controlo e Avaliação Treino</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" >Histórico Lesões</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'show_athlete_wellness' athlete.id %}" >Wellness</a>
+                            </li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div>
+                            <div class="row">
+                                <select class="custom-select" name="event_selection" onchange="redirectToEvent()" >
+                                    {% for competitions_event in competitions_events %}
+                                        <option value="{{ competitions_event }}" {% if event == competitions_event.event_name %}selected{% endif %} >{{ competitions_event }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div>
+                                <figure class="highcharts-figure">
+                                    <div id="history_progression"></div>
+                                </figure>
+                            </div>
+                        </div>
+                    </div><!-- /.card-body -->
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+<script>
+    function redirectToEvent() {
+      var selectedEvent = document.querySelector('select[name="event_selection"]').value;
+      window.location.href = "{% url 'show_athlete_progression' athlete.id %}?event=" + encodeURIComponent(selectedEvent);
+    }
+
+    var progression_s = '{{ progression_data | safe }}';
+    var progression = JSON.parse(progression_s);
+
+
+    Highcharts.chart('history_progression', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Progressão:'
+        },
+        xAxis: {
+            categories: progression.years
+        },
+        yAxis: {
+            title: {
+                text: 'Marcas'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+        series: [{
+            name: 'Oficiais',
+            data: progression.results
+        }]
+    });
+</script>
+
+{% endblock content %}

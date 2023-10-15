@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .forms import EvaluationForm
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 # Create your views here.
 
 @login_required(login_url='login')
@@ -37,6 +37,7 @@ def strength_test_create(request):
                 instance.hams_deficit = f'{hams_deficit:.2%}'
 
             instance.save()
+            messages.success(request, 'Formulário enviado com sucesso!')
             return render(request, 'users/home.html')
     else:
         form = EvaluationForm()

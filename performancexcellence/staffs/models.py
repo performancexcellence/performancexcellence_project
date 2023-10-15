@@ -17,4 +17,4 @@ class Staff(models.Model):
     )
     staff_type = models.CharField(max_length=30, choices=staff_choices)
     def __str__(self):
-        return str(self.profile.name)
+        return str(self.profile.first_name)

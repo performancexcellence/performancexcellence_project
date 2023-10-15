@@ -17,4 +17,4 @@ class AntropometricData(models.Model):
     obs = models.TextField()
 
     def __str__(self):
-        return f"{self.athlete.profile.name} - {self.date}"
+        return f"{self.athlete.profile.first_name} {self.athlete.profile.last_name} - {self.date}"

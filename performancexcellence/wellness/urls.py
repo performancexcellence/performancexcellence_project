@@ -19,9 +19,5 @@ from django.urls import path, include
 from . import views 
 
 urlpatterns = [
-    path('daily_registration/<str:pk>/', views.daily_registration, name="daily_registration"),
-    path('show_registration/<str:pk>/', views.show_registration, name="show_registration"),
-    path('wellness_registrations/', views.wellness_registrations, name="wellness_registrations"),
-
-
+    path('daily_registration/<str:pk>/', views.daily_registration, name="daily_registration")
 ]
