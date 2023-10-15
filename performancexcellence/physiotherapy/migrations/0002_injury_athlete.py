@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('athletes', '0006_alter_athlete_main_coach'),
         ('physiotherapy', '0001_initial'),
