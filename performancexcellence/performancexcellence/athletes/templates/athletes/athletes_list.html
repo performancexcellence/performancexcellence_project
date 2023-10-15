@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+{% load static%}
+{% block content %}
+
+
+    <br>
+    <div class="col-sm-6">
+        <h2>Atletas</h2>
+    </div>
+    <br>
+
+      <!-- Default box -->
+      <div class="card card-solid">
+        <div class="card-body pb-0">
+          <div class="row">
+            {% for athlete in athletes%}
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+              <div class="card bg-light d-flex flex-fill">
+                <div class="card-header text-muted border-bottom-0">
+                  {{ athlete.event_group.get_event_group_display }}
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>{{ athlete.profile.first_name  }} {{ athlete.profile.last_name  }} </b></h2>
+                      <p class="text-muted text-sm"><b>Sobre: </b> {{ athlete.profile.description|truncatechars:100 }}</p>
+
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-edit"></i></span> Treinador: {{ athlete.main_coach}}</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-users"></i></span> Clube: {{ athlete.team_name}}</li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                        <img src="{{ athlete.profile.profile_image.url }}" alt="user-avatar" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    <a href="{% url 'show_athlete' athlete.id %}" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> Ver Perfil
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor%}
+          </div>
+        </div>
+        <!-- /.card-body -->
+
+        <!-- /.card-footer -->
+      </div>
+      <!-- /.card -->
+
+
+{% endblock content %}

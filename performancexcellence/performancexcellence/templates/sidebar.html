@@ -1,0 +1,188 @@
+{% load static%}
+<aside class="main-sidebar sidebar-light-primary elevation-4">
+
+  <a href="#" class="brand-link">
+    <img src="{% static 'dist/img/benfica_olimpico_logo.png' %}" alt="Academia Benfica Olímpico Logo" class="img-fluid mb-2"
+         style="opacity: .8">
+  </a>
+
+  <div class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition" style=""><div class="os-resize-observer-host observed"><div class="os-resize-observer" style="left: 0px; right: auto;"></div></div><div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left;"><div class="os-resize-observer"></div></div><div class="os-content-glue" style="margin: 0px -8px; width: 249px; height: 548px;"></div><div class="os-padding"><div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;"><div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
+
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        {% if current_profile.profile_image %}
+        <img src="{{ current_profile.profile_image.url }}" class="img-circle elevation-2" alt="User Image">
+        {% else %}
+        <!-- Display a default image if the user doesn't have a profile image -->
+        <img src="{% static 'profiles/profile_default.jpg' %}" class="img-circle elevation-2" alt="User Image">
+        {% endif %}
+      </div>
+      <div class="info">
+        <a href="{% url 'edit-account' user.id %}" class="d-block">{{current_profile.first_name}} {{current_profile.last_name}}</a>
+      </div>
+    </div>
+
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        {%if current_profile.is_staff%}
+        <li class="nav-item">
+          <a href="{% url 'athletes_list' %}" class="nav-link {% if '/athletes/' in request.path %}active{% endif %}">
+            <i class="fas fa-users"></i>
+            <p>Todos os Atletas</p>
+          </a>
+        </li>
+        {%endif%}
+        {%if current_profile.is_athlete%}
+        <li class="nav-item">
+          <a href="{% url 'show_athlete' current_athlete.id %}" class="nav-link {% if '/athletes/' in request.path %}active{% endif %}">
+            <i class="fas fa-users"></i
+            <p>O Meu Perfil</p>
+          </a>
+        </li>
+        {%endif%}
+        {%if current_profile.is_athlete%}
+        <li class="nav-item ">
+          <a href="#" class="nav-link {% if '/wellness/' in request.path and not '/athletes/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Wellness
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'daily_registration' user.id %}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Registos Diário</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {%endif%}
+        {%if current_profile.is_staff%}
+        <li class="nav-item ">
+          <a href="#" class="nav-link {% if '/control-evaluation/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-edit"></i>
+            <p>
+              Controlo de Treino
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'add_strength_test' %}" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Força</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'create_speed' %}" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Velocidade</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Resistência</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Técnica</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {%endif%}
+        {%if current_profile.is_staff%}
+        <li class="nav-item ">
+          <a href="#" class="nav-link {% if '/physiology/' in request.path %}active{% endif %}">
+            <i class="nav-icon far fa-plus-square"></i>
+            <p>
+              Fisiologia
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'create_evaluation' %}" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Submeter Avaliação</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {%endif%}
+        {%if current_profile.is_staff%}
+        <li class="nav-item ">
+          <a href="#" class="nav-link {% if '/training-programme/' in request.path %}active{% endif %}">
+            <i class="nav-icon far fa-calendar-alt"></i>
+            <p>
+              Plano de Treino
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'create_programme' %}" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Inserir Plano</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Objetivos</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {%endif%}
+        {%if current_profile.is_staff%}
+        <li class="nav-item ">
+          <a href="#" class="nav-link {% if '/nutrition/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              Nutrição
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'create_nutrition_evaluation' %}" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Avaliação</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {%endif%}
+        <li class="nav-item ">
+          <a href="" class="nav-link {% if '/about/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-file"></i>
+            <p>
+              Academia Olímpica
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'about' %}" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Sobre</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Regulamento</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div></div></div><div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden"><div class="os-scrollbar-track"><div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div></div></div><div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden"><div class="os-scrollbar-track"><div class="os-scrollbar-handle" style="height: 25.1259%; transform: translate(0px, 0px);"></div></div></div><div class="os-scrollbar-corner"></div></div>
+</aside>
