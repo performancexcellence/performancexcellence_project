@@ -54,11 +54,17 @@ def home(request):
     end_date = datetime(date.today().year, date.today().month, date.today().day, 23, 59, 59)
     current_user = request.user
     profile = Profile.objects.get(user=current_user)
-    athlete = Athlete.objects.get(profile=profile)
-    wellness_registers = WellnessDaily.objects.filter(athlete=athlete.id, registration_date__gte=start_date, registration_date__lte=end_date)
-    wellness_7days = get_welness_7days(wellness_registers)
-    wellness_graph = wellness(wellness_registers)
-    training_programme = TrainingProgramme.objects.filter(athlete=athlete, date=date.today()).first()
+    try:
+        athlete = Athlete.objects.get(profile=profile)
+        wellness_registers = WellnessDaily.objects.filter(athlete=athlete.id, registration_date__gte=start_date, registration_date__lte=end_date)
+        wellness_7days = get_welness_7days(wellness_registers)
+        wellness_graph = wellness(wellness_registers)
+        training_programme = TrainingProgramme.objects.filter(athlete=athlete, date=date.today()).first()
+    except:
+        athlete = None
+        wellness_graph=None
+        training_programme = None
+        wellness_7days = None
     if training_programme is not None:
         warmup = training_programme.warmup.split(';')
     else:
