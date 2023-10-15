@@ -10,5 +10,6 @@ class Injury(models.Model):
     severity = models.CharField(max_length=255)
     recuperation_days = models.IntegerField()
 
+
     def __str__(self):
         return f"{self.athlete.profile.first_name} {self.athlete.profile.last_name} - {self.date}"
