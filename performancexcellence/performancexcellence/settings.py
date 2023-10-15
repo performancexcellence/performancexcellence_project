@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'control_evaluation.apps.ControlEvaluationConfig',
     'physiology.apps.PhysiologyConfig',
     'training_programme.apps.TrainingProgrammeConfig',
-    'nutrition.apps.NutritionConfig'
+    'nutrition.apps.NutritionConfig',
+    'physiotherapy.apps.PhysiotherapyConfig'
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'performancexcellence.context_processors.profile'
             ],
         },
     },
@@ -151,3 +153,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

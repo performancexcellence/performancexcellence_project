@@ -129,4 +129,64 @@ def wellness(wellness_registers):
     return result_dict
 
 
+def weekly_wellness(wellness_registers):
+    results_df = pd.DataFrame(list(iter(wellness_registers.values())))
 
+    # Convert the registration_date column to datetime format
+    results_df['registration_date'] = pd.to_datetime(results_df['registration_date'])
+
+    # Calculate the start of the week for each registration date
+    results_df['week_start'] = results_df['registration_date'] - pd.to_timedelta(results_df['registration_date'].dt.dayofweek, unit='D')
+
+    weekly_data = results_df.groupby('week_start')
+
+    result_dict = {
+        "weight": [],
+        "mood": [],
+        "stress": [],
+        "sleep_quality": [],
+        "soreness": [],
+        "fatigue": [],
+        "average": [],
+        "week_start": [],
+        "hydration": [],
+        "nutrition": [],
+        "sleep_hours": []
+    }
+
+    for week_start, group_data in weekly_data:
+        mood_avg = group_data['mood'].mean()
+        stress_avg = group_data['stress_level'].mean()
+        sleep_quality_avg = group_data['sleep_quality'].mean()
+        soreness_avg = group_data['muscle_soreness'].mean()
+        fatigue_avg = group_data['fatigue'].mean()
+        nutrition_avg = group_data['nutrition'].mean()
+        hydration_avg = group_data['hydration'].mean()
+        weight_avg = group_data['weight'].mean()
+        sleep_hours_avg = group_data['hours_sleep'].mean()
+        overall_avg = (mood_avg + stress_avg + sleep_quality_avg + soreness_avg + fatigue_avg + nutrition_avg + hydration_avg) / 7
+
+        result_dict["mood"].append(mood_avg)
+        result_dict["stress"].append(stress_avg)
+        result_dict["sleep_quality"].append(sleep_quality_avg)
+        result_dict["soreness"].append(soreness_avg)
+        result_dict["fatigue"].append(fatigue_avg)
+        result_dict["average"].append(overall_avg)
+        result_dict["week_start"].append(week_start.strftime("%Y-%m-%d"))
+        result_dict["nutrition"].append(nutrition_avg)
+        result_dict["weight"].append(weight_avg)
+        result_dict["hydration"].append(hydration_avg)
+        result_dict["sleep_hours"].append(sleep_hours_avg)
+
+    return result_dict
+
+def get_competitions_by_athlete(athlete_id):
+    competitions = Competition.objects.filter(athlete=athlete_id)
+    distinct_events = set()
+    # Iterar sobre todas as competições
+    for competition in competitions:
+        # Adicionar o evento da competição ao set
+        distinct_events.add(competition.event)
+
+    # Retornar o set como um array
+    return list(distinct_events)

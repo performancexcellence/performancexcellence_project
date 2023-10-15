@@ -5,6 +5,7 @@ from .models import WellnessDaily
 from users.models import Profile 
 from athletes.models import Athlete
 from django.contrib.auth.decorators import login_required
+import locale
 
 @login_required(login_url='login')
 def daily_registration(request, pk):
@@ -13,6 +14,7 @@ def daily_registration(request, pk):
     athlete = Athlete.objects.get(profile=profile)
     if request.method == 'POST':
         weight = request.POST.get('weight')
+        weight = weight.replace(",", ".")
         fatigue = request.POST.get('fatigue')
         sleep = request.POST.get('sleep')
         soreness = request.POST.get('soreness')
@@ -21,6 +23,7 @@ def daily_registration(request, pk):
         hydration = request.POST.get('hydration')
         nutrition = request.POST.get('nutrition')
         hours_sleep = request.POST.get('hours_sleep')
+        hours_sleep = hours_sleep.replace(",", ".")
 
         # Create a new WellnessDaily instance and assign values
         WellnessDaily.objects.create(
@@ -44,30 +47,3 @@ def daily_registration(request, pk):
         'profile': profile
     }
     return render(request, 'wellness/daily_registration.html', context)
-
-def show_registration(request, pk):
-    registration = WellnessDaily.objects.get(id=pk)
-    context = {"registration": registration}
-    return render(request, 'wellness/show_registration.html', context)
-
-def wellness_registrations(request):
-    athlete_name = request.GET.get('athlete')
-    athlete_list = Athlete.objects.all()
-    if athlete_name is None:
-        register_list = WellnessDaily.objects.all()
-        for register in register_list:
-            register.average = (register.mood + register.stress_level + register.muscle_soreness + register.sleep_quality + register.fatigue) / 5
-    else: 
-        profile = Profile.objects.get(name=athlete_name)
-        athlete = Athlete.objects.get(profile=profile)
-        register_list = WellnessDaily.objects.filter(athlete=athlete.id)
-        for register in register_list:
-            register.average = (register.mood + register.stress_level + register.muscle_soreness + register.sleep_quality + register.fatigue) / 5
-
-
-    context = {
-        'register_list': register_list,
-        "athlete_name": athlete_name,
-        "athlete_list": athlete_list,
-    }
-    return render(request, 'wellness/list_registration.html', context)

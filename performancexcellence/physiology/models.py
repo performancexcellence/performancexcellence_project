@@ -36,4 +36,4 @@ class Evaluation(models.Model):
     calf_deficit = models.FloatField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.athlete.profile.name} - {self.date}"
+        return f"{self.athlete.profile.first_name} {self.athlete.profile.last_name} - {self.date}"

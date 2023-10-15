@@ -9,7 +9,7 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{% url 'home' %}" class="nav-link">Home</a>
         </li>
-    </ul> 
+    </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -20,7 +20,7 @@
           <i class="fa fa-user"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Bem-vindo {{user.first_name}} {{user.last_name}}</span>
+          <span class="dropdown-item dropdown-header">Bem-vindo {{current_profile.first_name}} {{current_profile.last_name}}</span>
           <div class="dropdown-divider"></div>
           <a href="{% url 'edit-account' user.id %}" class="dropdown-item">
             <i class="fas fa-user mr-2"></i> Editar Perfil

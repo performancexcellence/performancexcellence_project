@@ -35,6 +35,5 @@ class Athlete(models.Model):
     psychologist = models.CharField(max_length=200, blank=True, null=True)
     second_coach = models.CharField(max_length=200, blank=True, null=True)
     main_coach = models.CharField(max_length=200, blank=True, null=True)
-    #main_coach = models.ForeignKey(Staff, on_delete=models.CASCADE, related_name='main_coach_profile', null=True, blank=True)
     def __str__(self):
         return f"{self.profile} - {self.event_group}"
