@@ -16,24 +16,18 @@ class Evaluation(models.Model):
     #Adutor
     adductor_left_peak_force= models.FloatField(null=True, blank=True)
     adductor_right_peak_force= models.FloatField(null=True, blank=True)
-    adductor_deficit = models.FloatField(null=True, blank=True)
     #Abdutor 
     abductor_left_peak_force= models.FloatField(null=True, blank=True)
     abductor_right_peak_force= models.FloatField(null=True, blank=True)
-    abductor_deficit = models.FloatField(null=True, blank=True)
     #Hamstrings
-    hams = models.FloatField(null=True, blank=True)
     hams_right = models.FloatField(null=True, blank=True)
     hams_left = models.FloatField(null=True, blank=True)
-    hams_deficit = models.FloatField(null=True, blank=True)
     #Quad
     quad_left = models.FloatField(null=True, blank=True)
     quad_right = models.FloatField(null=True, blank=True)
-    quad_deficit = models.FloatField(null=True, blank=True)
     #Gemeos
     calf_left = models.FloatField(null=True, blank=True)
     calf_right = models.FloatField(null=True, blank=True)
-    calf_deficit = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.athlete.profile.first_name} {self.athlete.profile.last_name} - {self.date}"
