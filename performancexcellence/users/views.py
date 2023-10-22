@@ -90,7 +90,7 @@ def home(request):
                "obs": obs}
     return render(request, 'users/home.html', context)
 
-
+@login_required(login_url='login')
 def editAccount(request, pk):
     profile = Profile.objects.get(user=pk)
     gender_choices = (
@@ -161,6 +161,7 @@ def editAccount(request, pk):
                'gender_choices': gender_choices,
                'event_group_choices': event_group_choices}
     return render(request, 'users/edit_profile.html', context)
+
 
 def get_welness_7days(wellness_registers):
     wellness_7days = wellness(wellness_registers)

@@ -11,45 +11,54 @@ import pandas as pd
 from wellness.models import WellnessDaily
 
 def progression_by_year(athlete_id, event_name):
-    # Retrieve the data from the database
-    all_results = Competition.objects.filter(athlete=athlete_id)
+    # Retrieve the specific event based on event_name
     event = CompetitionEvent.objects.get(event_name=event_name)
-    # Convert querysets to DataFrames
-    results_df = pd.DataFrame(list(all_results.values()))
-    events_df = pd.DataFrame([event.__dict__])
-    # Perform a left join to combine the two DataFrames based on 'event' column
-    df = results_df.merge(events_df, left_on='event_id', right_on='id', how='inner')
-    df = df[((df.competition_wind <= 2.0) & (df.wind_direction == '+')) | (df.wind_direction == '-')]
-    # Select specific columns after the join
-    selected_columns = ["event_name", "competition_result", "wind_direction", "competition_wind", "competition_date"]
-    df = df[selected_columns]
-    # Convert competition_date to datetime format
-    df['competition_date'] = pd.to_datetime(df['competition_date'])
+
+    # Filter results based on athlete and the specific event
+    results = Competition.objects.filter(athlete=athlete_id, event=event)
+
+    # Convert the QuerySet to a DataFrame
+    results_df = pd.DataFrame(list(results.values()))
+
+    # Filter for valid wind conditions
+    if event.wind_influence:
+        results_df = results_df[
+            (
+                (results_df.competition_wind <= 2.0) & (results_df.wind_direction == '+')
+            ) | 
+            (results_df.wind_direction == '-')
+        ]
+
+    # Convert competition_date to datetime format and extract year
+    results_df['competition_date'] = pd.to_datetime(results_df['competition_date'])
+    results_df['year'] = results_df['competition_date'].dt.year
+
+    # Transform competition_result
+    def transform_result(value):
+        if ":" in str(value):
+            return float(str(value).replace(":", "."))
+        else:
+            return float(value)
     
-    # Extract year from competition_date and add it as a new column
-    df['year'] = df['competition_date'].dt.year
+    results_df['competition_result'] = results_df['competition_result'].apply(transform_result)
 
     # Determine whether to use max() or min() based on the event type
-    results_in_meters_or_points = ["ShotPut", "Discus", "Hammer", "Javelin", "LongJump", "HighJump", "PoleVault", "TripleJump", "Heptathlon", "Decathlon", "Octathlon"]
-    if event_name in results_in_meters_or_points:
-        aggregated_df = df.groupby(["event_name", "year"])["competition_result"].max().reset_index()
+    if event.m_or_points:
+        aggregated_df = results_df.groupby(["year"])["competition_result"].max().reset_index()
     else:
-        aggregated_df = df.groupby(["event_name", "year"])["competition_result"].min().reset_index()
+        aggregated_df = results_df.groupby(["year"])["competition_result"].min().reset_index()
 
     # Convert DataFrame to dictionary
-    result_dict = {}
-    for index, row in aggregated_df.iterrows():
-        event = row['event_name']
-        year = row['year']
-        result = row['competition_result']
+    result_dict = {
+        event_name: {
+            'years': list(aggregated_df['year']),
+            'results': list(aggregated_df['competition_result'])
+        }
+    }
 
-        if event not in result_dict:
-            result_dict[event] = {'years': [], 'results': []}
-        
-        result_dict[event]['years'].append(year)
-        result_dict[event]['results'].append(result)
-    # Print the final dictionary
     return result_dict
+
+
 
 def personal_bests(athlete_id):
     best_results = (
@@ -74,7 +83,8 @@ def personal_bests(athlete_id):
             Q(wind_direction='+') & Q(competition_wind__lte=2.0) |
             Q(competition_result=Subquery(best_results.filter(event=OuterRef('event')).values('max_competition_result')))
         )
-        .values('event', 'competition_name', 'competition_local', 'competition_date', 'competition_result', 'wind_direction', 'competition_wind')
+        .values('event', 'competition_name', 'competition_local', 'competition_date', 
+                'competition_result', 'wind_direction', 'competition_wind', 'competition_period')  # Added 'competition_period' here.
     )
 
     # Create a dictionary to store the best result for each event_name
@@ -87,13 +97,14 @@ def personal_bests(athlete_id):
     # Convert the dictionary values to a list
     records_list = list(best_results_dict.values())
     
-        # Add event_name to each dictionary
+    # Add event_name to each dictionary
     for record in records_list:
         event_id = record['event']
         event_name = CompetitionEvent.objects.get(id=event_id).event_name
         record['event_name'] = event_name
 
     return records_list
+
 
 def wellness(wellness_registers):
     result_dict = {"weight": [], "mood": [], "stress": [], "sleep_quality": [], "soreness": [], "fatigue": [], "average": [], "registration_date": [], "hydration": [], "nutrition": [], "sleep_hours": []}

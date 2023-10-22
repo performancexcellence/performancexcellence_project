@@ -10,13 +10,16 @@ from django.contrib.auth.decorators import login_required
 def show_athlete(request, pk):
     athlete = Athlete.objects.get(id=pk)
     profile = Profile.objects.get(id=athlete.profile.id)
+    curriculum = AthleticsCurriculum.objects.filter(athlete=athlete).order_by("competition_date")
     context = {
         'athlete': athlete,
-        'profile': profile
+        'profile': profile,
+        "curriculum": curriculum
     }
 
     return render(request, 'athletes/athlete_show.html', context)
 
+@login_required(login_url='login')
 def athletes_list(request):
     athletes = Athlete.objects.all()
     items_per_page = 1
@@ -27,6 +30,7 @@ def athletes_list(request):
                'page_items': page_items}
     return render(request, 'athletes/athletes_list.html', context)
 
+@login_required(login_url='login')
 def show_athlete_wellness(request, pk):
     athlete = Athlete.objects.get(id=pk)
     wellness_registers = WellnessDaily.objects.filter(athlete=athlete.id)
@@ -42,6 +46,7 @@ def show_athlete_wellness(request, pk):
 
     return render(request, 'athletes/athlete_show_wellness.html', context)
 
+@login_required(login_url='login')
 def show_athlete_personal_records(request, pk):
     athlete = Athlete.objects.get(id=pk)
     profile = Profile.objects.get(id=athlete.profile.id)
@@ -54,6 +59,7 @@ def show_athlete_personal_records(request, pk):
 
     return render(request, 'athletes/athlete_show_personal_records.html', context)
 
+@login_required(login_url='login')
 def show_athlete_progression(request, pk):
     event = request.GET.get('event')
     athlete = Athlete.objects.get(id=pk)
