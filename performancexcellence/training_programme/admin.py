@@ -5,3 +5,4 @@ from training_programme.models import *
 
 # Register your models here.
 admin.site.register(TrainingProgramme)
+admin.site.register(Goals)

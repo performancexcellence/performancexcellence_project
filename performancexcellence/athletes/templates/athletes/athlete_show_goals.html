@@ -92,13 +92,11 @@
                         <ul class="nav nav-pills">
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'show_athlete' athlete.id %}">Currículo Desportivo</a>
-                            </li>              
+                            </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'show_athlete_goals' athlete.id %}">Objetivos</a>
+                                <a class="nav-link active" href="{% url 'show_athlete_goals' athlete.id %}">Objetivos</a>
                               </li>
-                            <li class="nav-item"><a
-                                    class="nav-link"
-                                    href="{% url 'show_athlete_personal_records' athlete.id %}">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'show_athlete_personal_records' athlete.id %}">
                                 Recordes Pessoais
                             </a></li>
                             <li class="nav-item"><a
@@ -114,14 +112,40 @@
                                 <a class="nav-link" href="{% url 'show_control_injuries' athlete.id %}" >Histórico Lesões</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'show_athlete_wellness' athlete.id %}" >Wellness</a>
+                                <a class="nav-link" href="{% url 'show_athlete_wellness' athlete.id %}" >Wellness</a>
                             </li>
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
-                        <figure class="highcharts-figure">
-                            <div id="wellness"></div>
-                        </figure>
+                        <div>
+                            <div>
+                                <select id="tableSelector" class="custom-select rounded-0">
+                                    {% for season, period in seasons_periods %}
+                                        <option value="{{ season }}_{{ period }}">{{ season }} {{ period }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                                <div>
+                                    <table class="table" id="outdoorTable">
+                                        <thead class="text-center">
+                                        <tr class="text-center">
+                                            <th>Prova</th>
+                                            <th>Marca</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
+                                        {% for goal in goals %}
+                                        <tr>
+                                            <td>{{ goal.competition_event }}</td>
+                                            <td>{{ goal.competition_result }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+    
+                            </div>
+                        </div>
                     </div><!-- /.card-body -->
                 </div>
             </div>
@@ -131,74 +155,25 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-
-<!-- /.content-wrapper -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    var wellness_s = '{{ wellness_data | safe }}';
-    var wellness = JSON.parse(wellness_s);
-    Highcharts.chart('wellness', {
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: 'Wellness:'
-        },
-        xAxis: {
-            categories: wellness.week_start
-        },
-        yAxis: {
-            title: {
-                text: 'Marcas'
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: [{
-            name: 'Peso',
-            data: wellness.weight
-        },{
-            name: 'Horas Dormidas',
-            data: wellness.sleep_hours
-        },{
-            name: 'Mood',
-            data: wellness.mood
-        },
-        {
-            name: 'Niveis de Stress',
-            data: wellness.stress_levels
-        },
-        {
-            name: 'Qualidade de Sono',
-            data: wellness.sleep_quality
-        },
-        {
-            name: 'Dor Muscular',
-            data: wellness.muscle_soreness
-        },
-        {
-            name: 'Fadiga',
-            data: wellness.fatigue
-        },
-        {
-            name: 'Nutrição',
-            data: wellness.nutrition
-        },
-        {
-            name: 'Hidratação',
-            data: wellness.hydration
-        },
-        {
-            name: 'Média',
-            data: wellness.average
-        }]
+    $(document).ready(function() {
+        $('#tableSelector').change(function() {
+            const selectedValue = $(this).val();
+            const [selectedSeason, selectedPeriod] = selectedValue.split('_');
+
+            // Mostrar/Esconder linhas com base na seleção
+            $('#outdoorTable tbody tr').each(function() {
+                const rowSeason = $(this).data('season');   // assumindo que você tem um atributo 'data-season' nas linhas
+                const rowPeriod = $(this).data('period');   // e um 'data-period'
+
+                if (rowSeason === selectedSeason && rowPeriod === selectedPeriod) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
     });
-
 </script>
-
 {% endblock content %}

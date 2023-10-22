@@ -5,7 +5,17 @@
 
 <br>
 
-
+<style>
+    .green {
+        background-color: #00FF00;  /* green */
+    }
+    .yellow {
+        background-color: #FFFF00;  /* yellow */
+    }
+    .red {
+        background-color: #FF0000;  /* red */
+    }
+</style>
 
 <!-- Main content -->
 <section class="content">
@@ -92,13 +102,11 @@
                         <ul class="nav nav-pills">
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'show_athlete' athlete.id %}">Currículo Desportivo</a>
-                            </li>              
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'show_athlete_goals' athlete.id %}">Objetivos</a>
                               </li>
-                            <li class="nav-item"><a
-                                    class="nav-link"
-                                    href="{% url 'show_athlete_personal_records' athlete.id %}">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'show_athlete_personal_records' athlete.id %}">
                                 Recordes Pessoais
                             </a></li>
                             <li class="nav-item"><a
@@ -111,17 +119,34 @@
                                 <a class="nav-link" href="{% url 'show_control_evaluation' athlete.id %}">
                                     Controlo e Avaliação Treino</a></li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'show_control_injuries' athlete.id %}" >Histórico Lesões</a>
+                                <a class="nav-link active" href="{% url 'show_control_injuries' athlete.id %}" >Histórico Lesões</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'show_athlete_wellness' athlete.id %}" >Wellness</a>
+                                <a class="nav-link" href="{% url 'show_athlete_wellness' athlete.id %}" >Wellness</a>
                             </li>
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
-                        <figure class="highcharts-figure">
-                            <div id="wellness"></div>
-                        </figure>
+                            {% for injury in injuries %}
+                            <div class="card card-default collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">{{injury.injury_type}} | Severidade: {{injury.severity}} | Recuperação: {{injury.recuperation_days}}
+                                    </h3>
+                                    <div class="card-tools">
+                                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                       <i class="fas fa-plus"></i>
+                                       </button>
+                                    </div>
+                                 </div>
+                                <div class="card-body">
+                                    Data: {{injury.date}}
+                                    <br>
+                                    Observação: 
+                                    <p>{{injury.observation}}</p>
+                                </div>
+                            </div>
+                            {%endfor%}
+                        </div>
                     </div><!-- /.card-body -->
                 </div>
             </div>
@@ -130,75 +155,5 @@
         <!-- /.row -->
     </div><!-- /.container-fluid -->
 </section>
-<!-- /.content -->
-
-<!-- /.content-wrapper -->
-<script>
-    var wellness_s = '{{ wellness_data | safe }}';
-    var wellness = JSON.parse(wellness_s);
-    Highcharts.chart('wellness', {
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: 'Wellness:'
-        },
-        xAxis: {
-            categories: wellness.week_start
-        },
-        yAxis: {
-            title: {
-                text: 'Marcas'
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: [{
-            name: 'Peso',
-            data: wellness.weight
-        },{
-            name: 'Horas Dormidas',
-            data: wellness.sleep_hours
-        },{
-            name: 'Mood',
-            data: wellness.mood
-        },
-        {
-            name: 'Niveis de Stress',
-            data: wellness.stress_levels
-        },
-        {
-            name: 'Qualidade de Sono',
-            data: wellness.sleep_quality
-        },
-        {
-            name: 'Dor Muscular',
-            data: wellness.muscle_soreness
-        },
-        {
-            name: 'Fadiga',
-            data: wellness.fatigue
-        },
-        {
-            name: 'Nutrição',
-            data: wellness.nutrition
-        },
-        {
-            name: 'Hidratação',
-            data: wellness.hydration
-        },
-        {
-            name: 'Média',
-            data: wellness.average
-        }]
-    });
-
-</script>
 
 {% endblock content %}

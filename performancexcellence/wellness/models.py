@@ -6,7 +6,7 @@ from athletes.models import Athlete
 class WellnessDaily(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     athlete = models.ForeignKey(Athlete, on_delete=models.CASCADE, related_name='athlete_profile', null=True, blank=True)
-    weight = models.FloatField(default=0, blank=False, null=False)
+    weight = models.FloatField(default=None, blank=False, null=False)
     registration_date = models.DateField()
     mood = models.IntegerField(default=50, blank=False, null=False)
     stress_level = models.IntegerField(default=50, blank=False, null=False)
@@ -15,7 +15,7 @@ class WellnessDaily(models.Model):
     fatigue = models.IntegerField(default=50, blank=False, null=False)
     nutrition = models.IntegerField(default=50, blank=False, null=False)
     hydration = models.IntegerField(default=50, blank=False, null=False)
-    hours_sleep = models.FloatField(default=0, blank=False, null=False)
+    hours_sleep = models.FloatField(default=8, blank=False, null=False)
     training_intensity = models.FloatField(default=None, blank=True, null=True)
     nr_hours_training = models.FloatField(default=None, blank=True, null=True)
 
