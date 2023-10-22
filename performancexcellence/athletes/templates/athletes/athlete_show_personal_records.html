@@ -116,8 +116,14 @@
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
+                        <div class="form-group">
+                            <select id="tableSelector" class="custom-select rounded-0">
+                                <option value="Outdoor">Outdoor</option>
+                                <option value="Indoor">Indoor</option>
+                            </select>
+                        </div>
                             <div>
-                                <table class="table">
+                                <table class="table" id="outdoorTable">
                                     <thead class="text-center">
                                     <tr class="text-center">
                                         <th>Prova</th>
@@ -129,6 +135,7 @@
                                     </thead>
                                     <tbody class="text-center">
                                     {% for record in personal_records %}
+                                    {% if record.competition_period == 'Outdoor' %}
                                     <tr>
                                         <td>{{ record.event_name }}</td>
                                         <td>{{ record.competition_result }}</td>
@@ -137,9 +144,37 @@
                                         <td>{{ record.competition_date }}</td>
                                         <td></td>
                                     </tr>
+                                    {% endif %}
                                     {% endfor %}
                                     </tbody>
                                 </table>
+
+                                <table class="table" id="indoorTable" style="display:none;">
+                                    <thead class="text-center">
+                                    <tr class="text-center">
+                                        <th>Prova</th>
+                                        <th>Marca</th>
+                                        <th>Vento</th>
+                                        <th>Local</th>
+                                        <th>Data</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                    {% for record in personal_records %}
+                                    {% if record.competition_period == 'Indoor' %}
+                                    <tr>
+                                        <td>{{ record.event_name }}</td>
+                                        <td>{{ record.competition_result }}</td>
+                                        <td>{{ record.wind_direction }} {{ record.competition_wind }}</td>
+                                        <td>{{ record.competition_local }}</td>
+                                        <td>{{ record.competition_date }}</td>
+                                        <td></td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
 
                             </div>
                     </div><!-- /.card-body -->
@@ -151,6 +186,22 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+<script>
+    document.getElementById('tableSelector').addEventListener('change', function() {
+        let selectedValue = this.value;
+
+        // Hide both tables initially
+        document.getElementById('indoorTable').style.display = 'none';
+        document.getElementById('outdoorTable').style.display = 'none';
+
+        // Show the selected table
+        if(selectedValue === 'Indoor') {
+            document.getElementById('indoorTable').style.display = '';
+        } else if(selectedValue === 'Outdoor') {
+            document.getElementById('outdoorTable').style.display = '';
+        }
+    });
+</script>
 
 
 {% endblock content %}

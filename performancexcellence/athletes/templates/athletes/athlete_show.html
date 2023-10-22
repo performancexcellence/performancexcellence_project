@@ -116,7 +116,24 @@
             </ul>
           </div><!-- /.card-header -->
           <div class="card-body">
-            <p>Curriculo em Construção</p>
+            <table class="table" id="outdoorTable">
+              <thead class="text-center">
+              <tr class="text-center">
+                  <th>Título</th>
+                  <th>Prova</th>
+                  <th>Data</th>
+              </tr>
+              </thead>
+              <tbody class="text-center">
+              {% for result in curriculum %}
+              <tr>
+                  <td>{{ result.title }}</td>
+                  <td>{{ result.competition_event }}</td>
+                  <td>{{ result.competition_date }}</td>
+              </tr>
+              {% endfor %}
+              </tbody>
+          </table>
           </div><!-- /.card-body -->
         </div>
       </div>
