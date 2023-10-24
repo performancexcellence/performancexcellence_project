@@ -93,6 +93,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'show_athlete' athlete.id %}">Currículo Desportivo</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'show_athlete_goals' athlete.id %}">Objetivos</a>
+                              </li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'show_athlete_personal_records' athlete.id %}">
                                 Recordes Pessoais
                             </a></li>
@@ -103,10 +106,10 @@
                             </a></li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{% url 'show_control_evaluation' athlete.id %}">
                                     Controlo e Avaliação Treino</a></li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" >Histórico Lesões</a>
+                                <a class="nav-link" href="{% url 'show_control_injuries' athlete.id %}" >Histórico Lesões</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'show_athlete_wellness' athlete.id %}" >Wellness</a>

@@ -35,8 +35,8 @@
         {%if current_profile.is_athlete%}
         <li class="nav-item">
           <a href="{% url 'show_athlete' current_athlete.id %}" class="nav-link {% if '/athletes/' in request.path %}active{% endif %}">
-            <i class="fas fa-users"></i
-            <p>O Meu Perfil</p>
+            <i class="fas fa-users"></i>
+            <p> Meu Perfil</p>
           </a>
         </li>
         {%endif%}

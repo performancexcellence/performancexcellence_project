@@ -46,7 +46,7 @@ def strength_test_create(request):
     return render(request, 'control_evaluation/strength_test_create.html', {'form': form})
 
 
-
+@login_required(login_url='login')
 def create_speed(request):
     if request.method == 'POST':
         form = SpeedForm(request.POST)

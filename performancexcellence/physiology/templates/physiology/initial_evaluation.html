@@ -5,221 +5,226 @@
     {% load static %}
 
     <br>
-    <form class="form" method="POST" action="{% url 'create_evaluation' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="{{ form.athlete.id_for_label }}">{{ form.athlete.label }}</label>
-            {{ form.athlete }}
-        </div>
 
-        <div class="form-group">
-            <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
-            {{ form.date }}
+    <div class="card">
+        <div class="card-header">
+            <h3>Avaliação Fisiologia</h3>
         </div>
-
-        <!-- Dropdown for selecting what to evaluate -->
-        <div class="form-group">
-            <label for="evaluation-select">Selecionar Avaliação</label>
-            <select id="evaluation-select" class="form-control">
-                <option value="0">Seleciona o Teste</option>
-                <option value="cmj">Counter Movement Jump</option>
-                <option value="tenFive">10-5</option> <!-- Use a valid ID without special characters -->
-                <option value="mtp">MTP</option>
-                <option value="adductors">Adutores</option>
-                <option value="abductors">Abdutores</option>
-                <option value="hamstrings">Posteriores</option>
-                <option value="quads">Anteriores</option>
-                <option value="calf">Gémeos</option>
-                <!-- Add more options for other evaluations if needed -->
-            </select>         
-        </div>
-
-        <!-- CMJ Field -->
-        <div class="card" id="cmj-section" hidden>
-            <div class="card-header ui-sortable-handle">
-                <h3>Counter Moviment Jump</h3>
-            </div>
-            <div class="card-body">
+        <div class="card-body">
+            <form class="form" method="POST" action="{% url 'create_evaluation' %}" enctype="multipart/form-data">
+                {% csrf_token %}
                 <div class="form-group">
-                    <label for="{{ form.cmj.id_for_label }}">{{ form.cmj.label }}</label>
-                    {{ form.cmj }}
+                    <label for="{{ form.athlete.id_for_label }}">{{ form.athlete.label }}</label>
+                    {{ form.athlete }}
                 </div>
-            </div>
-        </div>
 
-        <!-- 10-5 Fields -->
-        <div class="card" id="tenFive-section" hidden> <!-- Use the corrected ID here -->
-            <div class="card-header ui-sortable-handle">
-                <h3>10-5</h3>
-            </div>
-            <div class="card-body">
-                <!-- 10-5 Field -->
                 <div class="form-group">
-                    <label for="{{ form.average_rsi.id_for_label }}">{{ form.average_rsi.label }}</label>
-                    {{ form.average_rsi }}
+                    <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
+                    {{ form.date }}
                 </div>
-            </div>
-        </div>
 
-        <div class="card" id="mtp-section" hidden> <!-- Use the corrected ID here -->
-            <div class="card-header ui-sortable-handle">
-                <h3>MTP</h3>
-            </div>
-            <div class="card-body">
-                <!-- IMTP Peak Force Field -->
+                <!-- Dropdown for selecting what to evaluate -->
                 <div class="form-group">
-                    <label for="{{ form.imtp_peak_force.id_for_label }}">{{ form.imtp_peak_force.label }}</label>
-                    {{ form.imtp_peak_force }}
+                    <label for="evaluation-select">Selecionar Avaliação</label>
+                    <select id="evaluation-select" class="form-control">
+                        <option value="0">Seleciona o Teste</option>
+                        <option value="cmj">Counter Movement Jump</option>
+                        <option value="tenFive">10-5</option> <!-- Use a valid ID without special characters -->
+                        <option value="mtp">MTP</option>
+                        <option value="adductors">Adutores</option>
+                        <option value="abductors">Abdutores</option>
+                        <option value="hamstrings">Posteriores</option>
+                        <option value="quads">Anteriores</option>
+                        <option value="calf">Gémeos</option>
+                        <!-- Add more options for other evaluations if needed -->
+                    </select>
                 </div>
-            </div>
+
+                <!-- CMJ Field -->
+                <div class="card" id="cmj-section" hidden>
+                    <div class="card-header ui-sortable-handle">
+                        <h3>Counter Moviment Jump</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="{{ form.cmj.id_for_label }}">{{ form.cmj.label }}</label>
+                            {{ form.cmj }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10-5 Fields -->
+                <div class="card" id="tenFive-section" hidden> <!-- Use the corrected ID here -->
+                    <div class="card-header ui-sortable-handle">
+                        <h3>10-5</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- 10-5 Field -->
+                        <div class="form-group">
+                            <label for="{{ form.average_rsi.id_for_label }}">{{ form.average_rsi.label }}</label>
+                            {{ form.average_rsi }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="mtp-section" hidden> <!-- Use the corrected ID here -->
+                    <div class="card-header ui-sortable-handle">
+                        <h3>MTP</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- IMTP Peak Force Field -->
+                        <div class="form-group">
+                            <label for="{{ form.imtp_peak_force.id_for_label }}">{{ form.imtp_peak_force.label }}</label>
+                            {{ form.imtp_peak_force }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adductor and Abductor Fields -->
+                <div class="card" id="adductors-section" hidden>
+                    <div class="card-header ui-sortable-handle">
+                        <h3>Adutores</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Adductor Left Peak Force Field -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.adductor_left_peak_force.id_for_label }}">{{ form.adductor_left_peak_force.label }}</label>
+                                    {{ form.adductor_left_peak_force }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Adductor Right Peak Force Field -->
+                                <div class="form-group">
+                                    <label for="{{ form.adductor_right_peak_force.id_for_label }}">{{ form.adductor_right_peak_force.label }}</label>
+                                    {{ form.adductor_right_peak_force }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Relative Add Field -->
+                        <div class="form-group">
+                            <label for="{{ form.relative_add.id_for_label }}">{{ form.relative_add.label }}</label>
+                            {{ form.relative_add }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adductor and Abductor Fields -->
+                <div class="card" id="abductors-section" hidden>
+                    <div class="card-header ui-sortable-handle">
+                        <h3>Abdutores</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Abductor Left Peak Force Field -->
+                                <div class="form-group">
+                                    <label for="{{ form.abductor_left_peak_force.id_for_label }}">{{ form.abductor_left_peak_force.label }}</label>
+                                    {{ form.abductor_left_peak_force }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Abductor Right Peak Force Field -->
+                                <div class="form-group">
+                                    <label for="{{ form.abductor_right_peak_force.id_for_label }}">{{ form.abductor_right_peak_force.label }}</label>
+                                    {{ form.abductor_right_peak_force }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Relative Abd Field -->
+                        <div class="form-group">
+                            <label for="{{ form.relative_abd.id_for_label }}">{{ form.relative_abd.label }}</label>
+                            {{ form.relative_abd }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hamstrings and Quadriceps Fields -->
+                <div class="card" id="hamstrings-section" hidden>
+                    <div class="card-header ui-sortable-handle">
+                        <h3>Posteriores</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- ISO Hamstrings Field -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- ISO Hamstrings Right Field -->
+                                <div class="form-group">
+                                    <label for="{{ form.hams_right.id_for_label }}">{{ form.hams_right.label }}</label>
+                                    {{ form.hams_right }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- ISO Hamstrings Left Field -->
+                                <div class="form-group">
+                                    <label for="{{ form.hams_left.id_for_label }}">{{ form.hams_left.label }}</label>
+                                    {{ form.hams_left }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hamstrings and Quadriceps Fields -->
+                <div class="card" id="quads-section" hidden>
+                    <div class="card-header ui-sortable-handle">
+                        <h3>Anteriores</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.quad_left.id_for_label }}">{{ form.quad_left.label }}</label>
+                                    {{ form.quad_left }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.quad_right.id_for_label }}">{{ form.quad_right.label }}</label>
+                                    {{ form.quad_right }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calf Fields -->
+                <div class="card" id="calf-section" hidden>
+                    <div class="card-header ui-sortable-handle">
+                        <h3>Gémeos</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Calf Left Field -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.calf_left.id_for_label }}">{{ form.calf_left.label }}</label>
+                                    {{ form.calf_left }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Calf Right Field -->
+                                <div class="form-group">
+                                    <label for="{{ form.calf_right.id_for_label }}">{{ form.calf_right.label }}</label>
+                                    {{ form.calf_right }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add your other protocol-specific fields here -->
+
+                <div class="content-box">
+                    <input class="btn btn-primary float-right" type="submit" name="submit" value="Confirmar" />
+                </div>
+            </form>
+
         </div>
-
-        <!-- Adductor and Abductor Fields -->
-        <div class="card" id="adductors-section" hidden>
-            <div class="card-header ui-sortable-handle">
-                <h3>Adutores</h3>
-            </div>
-            <div class="card-body">
-                <!-- Adductor Left Peak Force Field -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="{{ form.adductor_left_peak_force.id_for_label }}">{{ form.adductor_left_peak_force.label }}</label>
-                            {{ form.adductor_left_peak_force }}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <!-- Adductor Right Peak Force Field -->
-                        <div class="form-group">
-                            <label for="{{ form.adductor_right_peak_force.id_for_label }}">{{ form.adductor_right_peak_force.label }}</label>
-                            {{ form.adductor_right_peak_force }}
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Relative Add Field -->
-                <div class="form-group">
-                    <label for="{{ form.relative_add.id_for_label }}">{{ form.relative_add.label }}</label>
-                    {{ form.relative_add }}
-                </div>
-            </div>
-        </div>
-
-        <!-- Adductor and Abductor Fields -->
-        <div class="card" id="abductors-section" hidden>
-            <div class="card-header ui-sortable-handle">
-                <h3>Abdutores</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <!-- Abductor Left Peak Force Field -->
-                        <div class="form-group">
-                            <label for="{{ form.abductor_left_peak_force.id_for_label }}">{{ form.abductor_left_peak_force.label }}</label>
-                            {{ form.abductor_left_peak_force }}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <!-- Abductor Right Peak Force Field -->
-                        <div class="form-group">
-                            <label for="{{ form.abductor_right_peak_force.id_for_label }}">{{ form.abductor_right_peak_force.label }}</label>
-                            {{ form.abductor_right_peak_force }}
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Relative Abd Field -->
-                <div class="form-group">
-                    <label for="{{ form.relative_abd.id_for_label }}">{{ form.relative_abd.label }}</label>
-                    {{ form.relative_abd }}
-                </div>
-            </div>
-        </div>
-
-        <!-- Hamstrings and Quadriceps Fields -->
-        <div class="card" id="hamstrings-section" hidden>
-            <div class="card-header ui-sortable-handle">
-                <h3>Posteriores</h3>
-            </div>
-            <div class="card-body">
-                    <!-- ISO Hamstrings Field -->
-                    <div class="form-group">
-                        <label for="{{ form.hams.id_for_label }}">{{ form.hams.label }}</label>
-                        {{ form.hams }}
-                    </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <!-- ISO Hamstrings Right Field -->
-                        <div class="form-group">
-                            <label for="{{ form.hams_right.id_for_label }}">{{ form.hams_right.label }}</label>
-                            {{ form.hams_right }}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <!-- ISO Hamstrings Left Field -->
-                        <div class="form-group">
-                            <label for="{{ form.hams_left.id_for_label }}">{{ form.hams_left.label }}</label>
-                            {{ form.hams_left }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Hamstrings and Quadriceps Fields -->
-        <div class="card" id="quads-section" hidden>
-            <div class="card-header ui-sortable-handle">
-                <h3>Anteriores</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="{{ form.quad_left.id_for_label }}">{{ form.quad_left.label }}</label>
-                            {{ form.quad_left }}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="{{ form.quad_right.id_for_label }}">{{ form.quad_right.label }}</label>
-                            {{ form.quad_right }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Calf Fields -->
-        <div class="card" id="calf-section" hidden>
-            <div class="card-header ui-sortable-handle">
-                <h3>Gémeos</h3>
-            </div>
-            <div class="card-body">
-                <!-- Calf Left Field -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="{{ form.calf_left.id_for_label }}">{{ form.calf_left.label }}</label>
-                            {{ form.calf_left }}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <!-- Calf Right Field -->
-                        <div class="form-group">
-                            <label for="{{ form.calf_right.id_for_label }}">{{ form.calf_right.label }}</label>
-                            {{ form.calf_right }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Add your other protocol-specific fields here -->
-
-        <div class="content-box">
-            <input class="btn btn-primary float-right" type="submit" name="submit" value="Confirmar" />
-        </div>
-    </form>
+    </div>
 
 <script>
     // JavaScript to show/hide sections based on dropdown selection
