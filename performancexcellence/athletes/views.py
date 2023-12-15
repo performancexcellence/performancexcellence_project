@@ -8,6 +8,7 @@ from wellness.models import WellnessDaily
 from django.contrib.auth.decorators import login_required
 from physiology.models import Evaluation
 from physiotherapy.models import Injury
+from control_evaluation.models import Strength, Speed
 
 
 
@@ -106,6 +107,18 @@ def show_control_evaluation(request, pk):
     athlete = Athlete.objects.get(id=pk)
     profile = Profile.objects.get(id=athlete.profile.id)
     physiology_evaluations = Evaluation.objects.filter(athlete=athlete)
+    strength = Strength.objects.filter(athlete=athlete)
+    speed = Speed.objects.filter(athlete=athlete)
+    for sp in speed:
+        if len(sp.time) > 3:
+            sp.calculated_value_1 = round(sp.time[2] - sp.time[1], 3)
+            sp.calculated_value_2 = round(sp.time[3] - sp.time[2], 3)
+            sp.calculated_value_3 = round(sp.time[4] - sp.time[3], 3)
+        else:
+            sp.calculated_value_1 = None
+            sp.calculated_value_2 = None
+            sp.calculated_value_3 = None
+
     for evaluation in physiology_evaluations:
         evaluation.adductor_deficit = calculate_deficit(
             evaluation.adductor_left_peak_force, 
@@ -131,6 +144,8 @@ def show_control_evaluation(request, pk):
         'athlete': athlete,
         'profile': profile,
         "physiology_evaluations": physiology_evaluations,
+        "speed": speed,
+        "strength": strength
     }
     return render(request, 'athletes/athlete_show_control_evaluation.html', context)
 

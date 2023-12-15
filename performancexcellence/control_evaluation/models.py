@@ -10,17 +10,20 @@ class Strength(models.Model):
     goal = models.CharField(max_length=10, choices=GOAL_CHOICES, default="Power")
     STRENGTH_EXERCISE_CHOICES = (
         ('Power Clean', 'Power Clean'),
+        ('Hang Clean', 'Hang Clean'),
+        ('Power Snatch', 'Power Snatch'),
+        ('Hang Snatch', 'Hang Snatch'),
         ('Parallel Squat', 'Parallel Squat'),
         ('Half Squat', 'Half Squat'),
         ('Bench Press', 'Bench Press'),
     )
     exercise = models.CharField(max_length=50, choices=STRENGTH_EXERCISE_CHOICES, default="Parallel Squat")
     date = models.DateField(null=True, blank=True)
-    sets = models.IntegerField()
-    mpv = models.JSONField(default=list, blank=True, null=True)  
-    peak_velocity = models.JSONField(default=list, blank=True, null=True)  
-    rom = models.JSONField(default=list, blank=True, null=True)  
-    mean_power = models.JSONField(default=list, blank=True, null=True)  
+    load = models.IntegerField(null=True)
+    mpv = models.FloatField(null=True, blank=True)
+    peak_velocity = models.FloatField(null=True, blank=True)
+    rom = models.FloatField(null=True, blank=True)
+    mean_power = models.FloatField(null=True, blank=True)
     
     def __str__(self):
         return f"{self.athlete} - {self.exercise} - {self.date}"
@@ -55,11 +58,10 @@ class Strength(models.Model):
 class Speed(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     athlete = models.ForeignKey(Athlete, on_delete=models.CASCADE, related_name='speed_records', null=True, blank=True)
-    EVALUATION_CHOICES = (("Aceleração", "Aceleração"), ("Velocidade Máxima", "Velocidade Máxima"), ("Completo 0-40", "Completo 0-40"), ("150", "150"), ("300", "300"), ("350", "350"))
+    EVALUATION_CHOICES = (("Completo 0-40", "Completo 0-40"), ("150", "150"), ("300", "300"), ("350", "350"))
     evaluation_choice = models.CharField(max_length=30, choices=EVALUATION_CHOICES, default="Speed")
     date = models.DateField(null=True, blank=True)
     distance = models.JSONField(default=list, blank=True, null=True)  
     time = models.JSONField(default=list, blank=True, null=True)  
-    
     def __str__(self):
         return f"{self.athlete} - {self.date}"

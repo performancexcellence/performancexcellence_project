@@ -130,7 +130,7 @@
                         <div>
                             <div class="card card-primary card-default collapsed-card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Avaliações Fisiologia
+                                    <h3 class="card-title">CMJ
                                     </h3>
                                     <div class="card-tools">
                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -139,28 +139,11 @@
                                     </div>
                                  </div>
                                 <div class="card-body">
-                                <table class="table" id="outdoorTable">
+                                <table class="table" id="cmj">
                                     <thead class="text-center">
                                     <tr class="text-center">
                                         <th>Data</th>
                                         <th>CMJ</th>
-                                        <th>RSI</th>
-                                        <th>MTP</th>
-                                        <th>Addutor Esquerdo</th>
-                                        <th>Addutor Direito</th>
-                                        <th>Défice</th>
-                                        <th>Abdutor Esquerdo</th>
-                                        <th>Abdutor Direito</th>
-                                        <th>Défice</th>
-                                        <th>Posterior Esquerdo</th>
-                                        <th>Posterior Direito</th>
-                                        <th>Défice</th>
-                                        <th>Anterior Esquerdo</th>
-                                        <th>Anterior Direito</th>
-                                        <th>Défice</th>
-                                        <th>Gémeo Esquerdo</th>
-                                        <th>Gémeo Direito</th>
-                                        <th>Défice</th>
                                     </tr>
                                     </thead>
                                     <tbody class="text-center">
@@ -169,32 +152,352 @@
                                     <tr>
                                         <td>{{ evaluation.date }}</td>
                                         <td>{{ evaluation.cmj }}</td>
-                                        <td>{{ evaluation.average_rsi }}</td>
-                                        <td>{{ evaluation.imtp_peak_force }}</td>
-                                        <td>{{ evaluation.adductor_left_peak_force }}</td>
-                                        <td>{{ evaluation.adductor_right_peak_force }}</td>
-                                        <td class="{% if evaluation.adductor_deficit < 5 %}green{% elif evaluation.adductor_deficit >= 5 and evaluation.adductor_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.adductor_deficit }} %</td>
-                                        <td>{{ evaluation.abductor_left_peak_force }}</td>
-                                        <td>{{ evaluation.abductor_right_peak_force }}</td>
-                                        <td class="{% if evaluation.abductor_deficit < 5 %}green{% elif evaluation.abductor_deficit >= 5 and evaluation.abductor_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.abductor_deficit }} %</td>
-                                        <td>{{ evaluation.hams_left }}</td>
-                                        <td>{{ evaluation.hams_right }}</td>
-                                        <td class="{% if evaluation.hams_deficit < 5 %}green{% elif evaluation.hams_deficit >= 5 and evaluation.hams_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.hams_deficit }} %</td>
-                                        <td>{{ evaluation.quad_left }}</td>
-                                        <td>{{ evaluation.quad_right }}</td>
-                                        <td class="{% if evaluation.quad_deficit < 5 %}green{% elif evaluation.quad_deficit >= 5 and evaluation.quad_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.quad_deficit }} %</td>
-                                        <td>{{ evaluation.calf_left }}</td>
-                                        <td>{{ evaluation.calf_right }}</td>
-                                        <td class="{% if evaluation.calf_deficit < 5 %}green{% elif evaluation.calf_deficit >= 5 and evaluation.calf_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.calf_deficit }} %</td>
                                     </tr>
                                     {% endfor %}
                                     </tbody>
                                 </table>
                                 </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card card-primary card-default collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">RSI
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table" id="rsi">
+                                        <thead class="text-center">
+                                        <tr class="text-center">
+                                            <th>Data</th>
+                                            <th>RSI</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
+                                            {% for evaluation in physiology_evaluations %}
+                                        <tr>
+                                            <td>{{ evaluation.date }}</td>
+                                            <td>{{ evaluation.average_rsi }}</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card card-primary card-default collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">MTP
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table" id="mtp">
+                                        <thead class="text-center">
+                                        <tr class="text-center">
+                                            <th>Data</th>
+                                            <th>MTP</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
+                                            {% for evaluation in physiology_evaluations %}
+                                        <tr>
+                                            <td>{{ evaluation.date }}</td>
+                                            <td>{{ evaluation.imtp_peak_force }}</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card card-primary card-default collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Addutor
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table" id="Addutor">
+                                        <thead class="text-center">
+                                        <tr class="text-center">
+                                            <th>Data</th>
+                                            <th>Addutor Esquerdo</th>
+                                            <th>Addutor Direito</th>
+                                            <th>Défice</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
+                                            {% for evaluation in physiology_evaluations %}
+                                        <tr>
+                                            <td>{{ evaluation.date }}</td>
+                                            <td>{{ evaluation.adductor_left_peak_force }}</td>
+                                            <td>{{ evaluation.adductor_right_peak_force }}</td>
+                                            <td class="{% if evaluation.adductor_deficit < 5 %}green{% elif evaluation.adductor_deficit >= 5 and evaluation.adductor_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.adductor_deficit }} %</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card card-primary card-default collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Abdutor
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table" id="Abdutor">
+                                        <thead class="text-center">
+                                        <tr class="text-center">
+                                            <th>Data</th>
+                                            <th>Abdutor Esquerdo</th>
+                                            <th>Abdutor Direito</th>
+                                            <th>Défice</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
+                                            {% for evaluation in physiology_evaluations %}
+                                        <tr>
+                                            <td>{{ evaluation.date }}</td>
+                                            <td>{{ evaluation.abductor_left_peak_force }}</td>
+                                            <td>{{ evaluation.abductor_right_peak_force }}</td>
+                                            <td class="{% if evaluation.abductor_deficit < 5 %}green{% elif evaluation.abductor_deficit >= 5 and evaluation.abductor_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.abductor_deficit }} %</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
 
                             </div>
                         </div>
+                        <div>
+                            <div class="card card-primary card-default collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Posterior
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table" id="Posterior">
+                                        <thead class="text-center">
+                                        <tr class="text-center">
+                                            <th>Data</th>
+                                            <th>Posterior Esquerdo</th>
+                                            <th>Posterior Direito</th>
+                                            <th>Défice</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
+                                            {% for evaluation in physiology_evaluations %}
+                                        <tr>
+                                            <td>{{ evaluation.date }}</td>
+                                            <td>{{ evaluation.hams_left }}</td>
+                                            <td>{{ evaluation.hams_right }}</td>
+                                            <td class="{% if evaluation.hams_deficit < 5 %}green{% elif evaluation.hams_deficit >= 5 and evaluation.hams_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.hams_deficit }} %</td>
+                                        </tr>
+                                        {% endfor %}
 
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card card-primary card-default collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Anteriores
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table" id="Anteriores">
+                                        <thead class="text-center">
+                                        <tr class="text-center">
+                                            <th>Data</th>
+                                            <th>Anterior Esquerdo</th>
+                                            <th>Anterior Direito</th>
+                                            <th>Défice</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
+                                            {% for evaluation in physiology_evaluations %}
+                                        <tr>
+                                            <td>{{ evaluation.date }}</td>
+                                            <td>{{ evaluation.quad_left }}</td>
+                                            <td>{{ evaluation.quad_right }}</td>
+                                            <td class="{% if evaluation.quad_deficit < 5 %}green{% elif evaluation.quad_deficit >= 5 and evaluation.quad_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.quad_deficit }} %</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card card-primary card-default collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Gémeos
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table" id="calf">
+                                        <thead class="text-center">
+                                        <tr class="text-center">
+                                            <th>Data</th>
+                                            <th>Gémeo Esquerdo</th>
+                                            <th>Gémeo Direito</th>
+                                            <th>Défice</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
+                                            {% for evaluation in physiology_evaluations %}
+                                        <tr>
+                                            <td>{{ evaluation.date }}</td>
+                                            <td>{{ evaluation.calf_left }}</td>
+                                            <td>{{ evaluation.calf_right }}</td>
+                                            <td class="{% if evaluation.calf_deficit < 5 %}green{% elif evaluation.calf_deficit >= 5 and evaluation.calf_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.calf_deficit }} %</td>
+                                        </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card card-primary card-default collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Velocidade
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table" id="speed">
+                                        <thead class="text-center">
+                                        <tr class="text-center">
+                                            <th>Data</th>
+                                            <th>10m</th>
+                                            <th>10m-20m</th>
+                                            <th>20m</th>
+                                            <th>20m-30m</th>
+                                            <th>30m</th>
+                                            <th>30m-40m</th>
+                                            <th>40m</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
+                                            {% for sp in speed %}
+                                                <tr>
+                                                    <td>{{ sp.date }}</td>
+                                                    <td>{{ sp.time.1 }}</td>
+                                                    <td>{{ sp.calculated_value_1 }}</td>
+                                                    <td>{{ sp.time.2 }}</td>
+                                                    <td>{{ sp.calculated_value_2 }}</td>
+                                                    <td>{{ sp.time.3 }}</td>
+                                                    <td>{{ sp.calculated_value_3 }}</td>
+                                                    <td>{{ sp.time.4 }}</td>
+                                                </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card card-primary card-default collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Força
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table" id="speed">
+                                        <thead class="text-center">
+                                        <tr class="text-center">
+                                            <th>Data</th>
+                                            <th>Exercício</th>
+                                            <th>Peso</th>
+                                            <th>Velocidade</th>
+                                            <th>Potência</th>
+                                            <th>ROM</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
+                                            {% for st in strength %}
+                                            <tr>
+                                                <td>{{ st.date }}</td>
+                                                <td>{{ st.exercise }}</td>
+                                                <td>{{ st.load }}</td>
+                                                <td>{{ st.peak_velocity }}</td>
+                                                <td>{{ st.mean_power }}</td>
+                                                <td>{{ st.rom }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
                         </div>
                     </div><!-- /.card-body -->
                 </div>
