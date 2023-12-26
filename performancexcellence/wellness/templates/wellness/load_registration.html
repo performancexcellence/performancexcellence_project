@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+
+<!-- LoadControl Form Section -->
+<form class="form" method="POST" action="#" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Controlo de Carga</h3>
+                </div>
+                <div class="card-body">
+                    <label for="training_hours">Horas de Atividade Física</label>
+                    <input class="form-control" type="float" placeholder="Horas de Treino [H]" name="training_hours" required>
+                    <br>
+                    <div class="form-group">
+                        <label for="customRange1">Intensidade</label>
+                        <div class="row">
+                            <div class="col-sm-4 text-left"><span>Descanso Completo</span></div>
+                            <div class="col-sm-4 text-center"><span>Normal</span></div>
+                            <div class="col-sm-4 text-right"><span>Treino Dificil</span></div>
+                        </div>
+                        <input type="range" class="custom-range" id="intensity" name="intensity" required>
+                    </div>
+                    <br>
+                    <label for="obs">Observação</label>
+                    <textarea class="form-control" placeholder="Observações" name="obs"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <button type="submit" class="btn btn-secondary float-right">Submit</button>
+    </div>
+</form>
+{% endblock content %}

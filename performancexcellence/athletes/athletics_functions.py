@@ -139,6 +139,24 @@ def wellness(wellness_registers):
         pass
     return result_dict
 
+def load(load_register):
+    result_dict = {"load": [], "training_hours": [], "intensity": [], "registration_date": []}
+    try:
+        # The `values()` method returns an iterator over the values of the dictionary, which is not iterable.
+        # To iterate over the values of the dictionary, use `iter(wellness_registers.values())`.
+        results_df = pd.DataFrame(list(iter(load_register.values())))
+        for index, row in results_df.iterrows():
+            load = row['load']
+            training_hours = row['training_hours']
+            intensity = row['intensity']
+            registration_date = row['registration_date'].strftime("%Y-%m-%d")
+            result_dict["load"].append(load)
+            result_dict["training_hours"].append(training_hours)
+            result_dict["intensity"].append(intensity)
+            result_dict["registration_date"].append(registration_date)
+    except:
+        pass
+    return result_dict
 
 def weekly_wellness(wellness_registers):
     results_df = pd.DataFrame(list(iter(wellness_registers.values())))
@@ -190,6 +208,38 @@ def weekly_wellness(wellness_registers):
         result_dict["sleep_hours"].append(sleep_hours_avg)
 
     return result_dict
+
+def weekly_load(load_registers):
+    results_df = pd.DataFrame(list(iter(load_registers.values())))
+
+    # Convert the registration_date column to datetime format
+    results_df['registration_date'] = pd.to_datetime(results_df['registration_date'])
+
+    # Calculate the start of the week for each registration date
+    results_df['week_start'] = results_df['registration_date'] - pd.to_timedelta(results_df['registration_date'].dt.dayofweek, unit='D')
+
+    weekly_data = results_df.groupby('week_start')
+
+    result_dict = {
+        "load": [],
+        "intensity": [],
+        "volume": [],
+        "week_start": []
+
+    }
+
+    for week_start, group_data in weekly_data:
+        intensity_avg = group_data['intensity'].mean()
+        volume_sum = group_data['training_hours'].sum()
+
+        result_dict["load"].append(intensity_avg*volume_sum)
+        result_dict["intensity"].append(intensity_avg)
+        result_dict["volume"].append(volume_sum)
+        result_dict["week_start"].append(week_start.strftime("%Y-%m-%d"))
+
+
+    return result_dict
+
 
 def get_competitions_by_athlete(athlete_id):
     competitions = Competition.objects.filter(athlete=athlete_id)

@@ -122,6 +122,9 @@
                         <figure class="highcharts-figure">
                             <div id="wellness"></div>
                         </figure>
+                        <figure class="highcharts-figure">
+                            <div id="container"></div>
+                        </figure>
                     </div><!-- /.card-body -->
                 </div>
             </div>
@@ -135,7 +138,9 @@
 <!-- /.content-wrapper -->
 <script>
     var wellness_s = '{{ wellness_data | safe }}';
+    var load_s = '{{ load_data | safe }}';
     var wellness = JSON.parse(wellness_s);
+    var load = JSON.parse(load_s);
     Highcharts.chart('wellness', {
         chart: {
             type: 'line'
@@ -171,7 +176,7 @@
         },
         {
             name: 'Niveis de Stress',
-            data: wellness.stress_levels
+            data: wellness.stress
         },
         {
             name: 'Qualidade de Sono',
@@ -179,7 +184,7 @@
         },
         {
             name: 'Dor Muscular',
-            data: wellness.muscle_soreness
+            data: wellness.soreness
         },
         {
             name: 'Fadiga',
@@ -199,6 +204,87 @@
         }]
     });
 
+    Highcharts.chart('container', {
+    chart: {
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'Load',
+        align: 'left'
+    },
+    subtitle: {
+        text: '',
+        align: 'left'
+    },
+    xAxis: [{
+        categories: load.week_start,
+        crosshair: true
+    }],
+    yAxis: [{ // Primary yAxis
+        labels: {
+            format: '{value}',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        title: {
+            text: 'Intensidade',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        }
+    }, { // Secondary yAxis
+        title: {
+            text: 'Volume',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        labels: {
+            format: '{value} horas',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        opposite: true
+    }],
+    tooltip: {
+        shared: true
+    },
+    legend: {
+        align: 'left',
+        x: 80,
+        verticalAlign: 'top',
+        y: 60,
+        floating: true,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            'rgba(255,255,255,0.25)'
+    },
+series: [{
+        name: 'Load',
+        type: 'column',
+        yAxis: 1,
+        data: load.load,
+        tooltip: {
+            valueSuffix: ' horas'
+        }
+    }, {
+        name: 'Intensidade',
+        type: 'spline',
+        data: load.intensity,
+        tooltip: {
+            valueSuffix: ''
+        }
+    }, {
+        name: 'Volume',
+        type: 'line', // or any other type you want
+        data: load.volume,
+        tooltip: {
+            valueSuffix: ''
+        }
+    }]
+});
 </script>
 
 {% endblock content %}

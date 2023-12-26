@@ -4,10 +4,12 @@ from competitions.models import *
 from training_programme.models import *
 from django.core.paginator import Paginator
 from athletes.athletics_functions import *
-from wellness.models import WellnessDaily
+from wellness.models import WellnessDaily, LoadControl
 from django.contrib.auth.decorators import login_required
 from physiology.models import Evaluation
 from physiotherapy.models import Injury
+from nutrition.models import AntropometricData
+from django.core.serializers import serialize
 from control_evaluation.models import Strength, Speed
 
 
@@ -40,14 +42,19 @@ def athletes_list(request):
 def show_athlete_wellness(request, pk):
     athlete = Athlete.objects.get(id=pk)
     wellness_registers = WellnessDaily.objects.filter(athlete=athlete.id)
+    load_registers = LoadControl.objects.filter(athlete=athlete.id)
     wellness_graph = weekly_wellness(wellness_registers)
+    load_graph = weekly_load(load_registers)
+    print(load_graph)
     profile = Profile.objects.get(id=athlete.profile.id)
     wellness_json = str(wellness_graph).replace("'", '"')
+    load_json = str(load_graph).replace("'", '"')
     context = {
         'athlete': athlete,
         'profile': profile,
         "wellness_data": wellness_json,
-        "tab": 'wellness'
+        "tab": 'wellness',
+        "load_data": load_json
     }
 
     return render(request, 'athletes/athlete_show_wellness.html', context)
@@ -100,6 +107,23 @@ def show_athlete_goals(request, pk):
         'event': event
     }
     return render(request, 'athletes/athlete_show_goals.html', context)
+
+
+@login_required(login_url='login')
+def show_athlete_antropometric(request, pk):
+    event = request.GET.get('event')
+    athlete = Athlete.objects.get(id=pk)
+    profile = Profile.objects.get(id=athlete.profile.id)
+    antropometric_data = AntropometricData.objects.filter(athlete=athlete)
+    antropometric_last = AntropometricData.objects.filter(athlete=athlete).last()
+    context = {
+        'athlete': athlete,
+        'profile': profile,
+        'antropometric_data': antropometric_data,
+        'recent_antropometric_data': antropometric_last,
+        'event': event
+    }
+    return render(request, 'athletes/athlete_show_antropometric.html', context)
 
 @login_required(login_url='login')
 def show_control_evaluation(request, pk):

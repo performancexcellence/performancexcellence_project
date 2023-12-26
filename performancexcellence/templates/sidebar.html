@@ -57,6 +57,14 @@
               </a>
             </li>
           </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'load_registration' user.id %}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Controlo de Carga</p>
+              </a>
+            </li>
+          </ul>
         </li>
         {%endif%}
         {%if current_profile.is_staff%}
@@ -149,14 +157,6 @@
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{% url 'create_nutrition_evaluation' %}" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Avaliação</p>
-              </a>
-            </li>
-          </ul>
         </li>
         {%endif%}
         <li class="nav-item ">
