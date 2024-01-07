@@ -14,7 +14,7 @@ class AntropometricData(models.Model):
     prega_bicipal = models.DecimalField(max_digits=6, decimal_places=2, default=None)
     prega_ilio_cristal = models.DecimalField(max_digits=6, decimal_places=2, default=None)
     prega_supra_espinal = models.DecimalField(max_digits=6, decimal_places=2, default=None)
-    prega_adbominal = models.DecimalField(max_digits=6, decimal_places=2, default=None)
+    prega_abdominal = models.DecimalField(max_digits=6, decimal_places=2, default=None)
     prega_coxa = models.DecimalField(max_digits=6, decimal_places=2, default=None)
     prega_gemeo = models.DecimalField(max_digits=6, decimal_places=2, default=None)
     perimeter_relax_arm = models.DecimalField(max_digits=6, decimal_places=2, default=None)

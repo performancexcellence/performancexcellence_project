@@ -115,7 +115,7 @@ def show_athlete_antropometric(request, pk):
     athlete = Athlete.objects.get(id=pk)
     profile = Profile.objects.get(id=athlete.profile.id)
     antropometric_data = AntropometricData.objects.filter(athlete=athlete)
-    antropometric_last = AntropometricData.objects.filter(athlete=athlete).last()
+    antropometric_data, antropometric_last = antropometric_function(antropometric_data)
     context = {
         'athlete': athlete,
         'profile': profile,

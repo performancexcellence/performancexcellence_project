@@ -251,3 +251,16 @@ def get_competitions_by_athlete(athlete_id):
 
     # Retornar o set como um array
     return list(distinct_events)
+
+def antropometric_function(antropometric_data):
+    for data in antropometric_data:
+        data.mg_somatorio = (
+                data.prega_tricipal + data.prega_subescapular + data.prega_bicipal +
+                data.prega_ilio_cristal + data.prega_supra_espinal + data.prega_abdominal +
+                data.prega_coxa + data.prega_gemeo
+        )
+        data.peso_mg = round((data.body_fat*data.weight),2)
+        data.mm_somatorio = (data.perimeter_relax_arm+ data.perimeter_strenght_arm+ data.perimeter_abdominal
+                             +data.perimeter_hip+ data.perimeter_thigh)
+        data.peso_mm = round((data.body_muscle*data.weight),2)
+    return antropometric_data, antropometric_data.last()
