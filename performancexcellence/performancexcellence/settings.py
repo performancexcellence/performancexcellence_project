@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'performancexcellence.templatetags',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
