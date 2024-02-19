@@ -3,6 +3,10 @@ from training_programme.models import *
 
 # Register your models here.
 
-# Register your models here.
-admin.site.register(TrainingProgramme)
-admin.site.register(Goals)
+class FilterAdmin(admin.ModelAdmin):
+    list_filter = [
+        "athlete"
+    ]
+
+admin.site.register(Goals, FilterAdmin)
+admin.site.register(TrainingProgramme, FilterAdmin)

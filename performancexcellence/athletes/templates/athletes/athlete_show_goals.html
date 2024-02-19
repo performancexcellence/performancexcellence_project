@@ -141,7 +141,13 @@
                                         {% for goal in goals %}
                                         <tr>
                                             <td>{{ goal.competition_event }}</td>
-                                            <td>{{ goal.competition_result }}</td>
+                                            <td>
+                                                {% if goal.competition_result is not none %}
+                                                {{ goal.competition_result }}
+                                                {% else %}
+                                                {{ goal.competition_result_timing }}
+                                                {% endif %}
+                                            </td>
                                         </tr>
                                         {% endfor %}
                                         </tbody>

@@ -23,7 +23,7 @@ class AntropometricData(models.Model):
     perimeter_hip = models.DecimalField(max_digits=6, decimal_places=2, default=None)
     perimeter_thigh = models.DecimalField(max_digits=6, decimal_places=2, default=None)
     perimeter_calf = models.DecimalField(max_digits=6, decimal_places=2, default=None)
-    obs = models.TextField(null=True)
+    obs = models.TextField(null=True,blank=True)
 
     def __str__(self):
         return f"{self.athlete.profile.first_name} {self.athlete.profile.last_name} - {self.date}"

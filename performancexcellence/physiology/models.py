@@ -13,6 +13,7 @@ class Evaluation(models.Model):
     average_rsi= models.FloatField(null=True, blank=True)
     #MTP
     imtp_peak_force= models.FloatField(null=True, blank=True)
+    time_to_peak_tork = models.FloatField(null=True, blank=True)
     #Adutor
     adductor_left_peak_force= models.FloatField(null=True, blank=True)
     adductor_right_peak_force= models.FloatField(null=True, blank=True)

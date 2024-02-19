@@ -99,6 +99,7 @@ def show_athlete_goals(request, pk):
     profile = Profile.objects.get(id=athlete.profile.id)
     goals = Goals.objects.filter(athlete=athlete)
     seasons_periods = Goals.objects.values_list('season', 'season_period').distinct()
+
     context = {
         'athlete': athlete,
         'profile': profile,
@@ -174,7 +175,8 @@ def show_control_evaluation(request, pk):
     return render(request, 'athletes/athlete_show_control_evaluation.html', context)
 
 def calculate_deficit(left_force, right_force):
-    return (left_force - right_force) / left_force * 100 if left_force else 0
+    result = (left_force - right_force) / left_force * 100 if left_force else 0
+    return abs(round(result, 2))
 
 
 @login_required(login_url='login')

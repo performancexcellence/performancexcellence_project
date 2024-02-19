@@ -5,8 +5,8 @@ from athletes.models import Athlete
 class CompetitionEvent(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     event_name = models.CharField(max_length=200, blank=True, null=True)
-    m_or_points = models.BooleanField(default=True)
-    seconds = models.BooleanField(default=False)
+    short_track = models.BooleanField(default=True)
+    timing = models.BooleanField(default=False)
     wind_influence = models.BooleanField(default=False)
     def __str__(self):
         return str(self.event_name)
@@ -19,11 +19,13 @@ class Competition(models.Model):
     competition_local = models.CharField(max_length=200, blank=True, null=True)
     competition_date = models.DateField(null=True, blank=True)
     competition_result = models.CharField(max_length=200, blank=True, null=True)
+    competition_result_timing = models.DurationField(blank=True, null=True)
     wind_direction_choices = (
         ('+', 'Positive'),
+        ('NW', 'Indoor'),
         ('-', 'Negative')
     )
-    wind_direction = models.CharField(max_length=10, choices=wind_direction_choices, default=" ", null=True)
+    wind_direction = models.CharField(max_length=10, choices=wind_direction_choices, default="NW", null=True)
     competition_position = models.IntegerField(blank=True, null=True)
     competition_wind = models.FloatField(blank=True, null=True)
     competition_period_choices = (

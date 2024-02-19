@@ -25,6 +25,7 @@ class Goals(models.Model):
     season = models.CharField(max_length=255, null=True, blank=True)  # Typically, class attributes should be lowercase, consider renaming this to "season"
     season_period = models.CharField(max_length=255, null=True, blank=True)
     competition_result = models.FloatField(null=True, blank=True)
+    competition_result_timing = models.DurationField(blank=True, null=True)
     comments = models.TextField(null=True, blank=True)
 
     def __str__(self):
