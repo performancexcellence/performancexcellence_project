@@ -122,16 +122,31 @@
                     <div class="card-body">
                         <div>
                             <div class="row">
-                                <select class="custom-select" name="event_selection" onchange="redirectToEvent()" >
-                                    {% for competitions_event in competitions_events %}
+                                <div class="col-md-5">
+                                    <select class="custom-select" name="event_selection" >
+                                        {% for competitions_event in competitions_events %}
                                         <option value="{{ competitions_event }}" {% if event == competitions_event.event_name %}selected{% endif %} >{{ competitions_event }} </option>
-                                    {% endfor %}
-                                </select>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <select class="custom-select" name="period_selection" >
+                                        {% for p in periods %}
+                                        <option value="{{ p }}" {% if p == period %}selected{% endif %} >{{ p }} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <span type="button" class="btn btn-primary float-right" onClick="redirectToEvent()"></i> Submeter</span>
+                                </div>
                             </div>
                             <div>
-                                <figure class="highcharts-figure">
-                                    <div id="history_progression"></div>
-                                </figure>
+                                {% if period is not null %}
+                                    <figure class="highcharts-figure">
+                                        <div id="progression"></div>
+                                    </figure>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div><!-- /.card-body -->
@@ -145,15 +160,16 @@
 <!-- /.content -->
 <script>
     function redirectToEvent() {
-      var selectedEvent = document.querySelector('select[name="event_selection"]').value;
-      window.location.href = "{% url 'show_athlete_progression' athlete.id %}?event=" + encodeURIComponent(selectedEvent);
+        var event = document.querySelector('select[name="event_selection"]').value;
+        var period = document.querySelector('select[name="period_selection"]').value;
+        window.location.href = "{% url 'show_athlete_progression' athlete.id %}?event=" + encodeURIComponent(event)+"&period="+ encodeURIComponent(period);
     }
 
-    var progression_s = '{{ progression_data | safe }}';
-    var progression = JSON.parse(progression_s);
+    var x_axis_s = {{ x_axis | safe }};
 
+    var y_axis_s = {{ y_axis | safe }};
 
-    Highcharts.chart('history_progression', {
+       Highcharts.chart('progression', {
         chart: {
             type: 'line'
         },
@@ -161,7 +177,7 @@
             text: 'Progressão:'
         },
         xAxis: {
-            categories: progression.years
+            categories: x_axis_s
         },
         yAxis: {
             title: {
@@ -177,10 +193,11 @@
             }
         },
         series: [{
-            name: 'Oficiais',
-            data: progression.results
+            name: 'Resultado',
+            data: y_axis_s
         }]
     });
+
 </script>
 
 {% endblock content %}

@@ -141,13 +141,13 @@
                                     </thead>
                                     <tbody class="text-center">
                                     {% for record in personal_records %}
-                                    {% if record.competition_period == 'Outdoor' %}
+                                    {% if record.competition_period == "Outdoor" %}
+
                                     <tr>
-                                        <td>{{ record.event_name }}</td>
-                                        <td>{{ record.competition_result }}</td>
-                                        <td>{{ record.wind_direction }} {{ record.competition_wind }}</td>
-                                        <td>{{ record.competition_local }}</td>
-                                        <td>{{ record.competition_date }}</td>
+                                        <td>{{ record.event }}</td>
+                                        <td>{{ record.result }}</td>
+                                        <td>{{ record.local }}</td>
+                                        <td>{{ record.date }}</td>
                                         <td></td>
                                     </tr>
                                     {% endif %}
@@ -160,22 +160,21 @@
                                     <tr class="text-center">
                                         <th>Prova</th>
                                         <th>Marca</th>
-                                        <th>Vento</th>
                                         <th>Local</th>
                                         <th>Data</th>
                                     </tr>
                                     </thead>
                                     <tbody class="text-center">
                                     {% for record in personal_records %}
-                                    {% if record.competition_period == 'Indoor' %}
-                                    <tr>
-                                        <td>{{ record.event_name }}</td>
-                                        <td>{{ record.competition_result }}</td>
-                                        <td>{{ record.wind_direction }} {{ record.competition_wind }}</td>
-                                        <td>{{ record.competition_local }}</td>
-                                        <td>{{ record.competition_date }}</td>
-                                        <td></td>
-                                    </tr>
+                                    {% if record.competition_period == "Indoor" %}
+
+                                        <tr>
+                                            <td>{{ record.event }}</td>
+                                            <td>{{ record.result }}</td>
+                                            <td>{{ record.local }}</td>
+                                            <td>{{ record.date }}</td>
+                                            <td></td>
+                                        </tr>
                                     {% endif %}
                                     {% endfor %}
                                     </tbody>

@@ -15,44 +15,22 @@ class Competition(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     event = models.ForeignKey(CompetitionEvent, on_delete=models.CASCADE)
     athlete = models.ForeignKey(Athlete, on_delete=models.CASCADE, related_name='competitions', null=True, blank=True)
-    competition_name = models.CharField(max_length=200, blank=True, null=True)
-    competition_local = models.CharField(max_length=200, blank=True, null=True)
-    competition_date = models.DateField(null=True, blank=True)
-    competition_result = models.CharField(max_length=200, blank=True, null=True)
-    competition_result_timing = models.DurationField(blank=True, null=True)
-    wind_direction_choices = (
-        ('+', 'Positive'),
-        ('NW', 'Indoor'),
-        ('-', 'Negative')
-    )
-    wind_direction = models.CharField(max_length=10, choices=wind_direction_choices, default="NW", null=True)
-    competition_position = models.IntegerField(blank=True, null=True)
-    competition_wind = models.FloatField(blank=True, null=True)
+    name = models.CharField(max_length=200, blank=True, null=True)
+    local = models.CharField(max_length=200, blank=True, null=True)
+    date = models.DateField(null=True, blank=True)
+    is_timing = models.BooleanField(default=True)
+    is_championship = models.BooleanField(default=False)
+    result= models.CharField(blank=True, null=True, max_length=30)
+    competition_wind = models.FloatField(blank=True, null=True, default=0)
     competition_period_choices = (
         ('Indoor', 'Pista Coberta'),
         ('Outdoor', 'Ar Livre')
     )
-    competition_period = models.CharField(max_length=10, choices=competition_period_choices)
-    is_final = models.BooleanField(default=False)
-    is_heat = models.BooleanField(default=False)
-    is_semi_final = models.BooleanField(default=False)
-    competition_category_choices = (
-    ('OW', 'OW 1'),
-    ('DF', 'DF'),
-    ('GW', 'GW'),
-    ('GL', 'GL'),
-    ('A', 'A'),
-    ('B', 'B'),
-    ('C', 'C'),
-    ('D', 'D'),
-    ('E', 'E'),
-    ('F', 'F')
-    )
-    competition_category = models.CharField(max_length=10, choices=competition_category_choices, default="F")
+    competition_period = models.CharField(max_length=10, choices=competition_period_choices, default="Outdoor")
     world_athletics_points = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.athlete.profile.first_name} {self.athlete.profile.last_name} - {self.competition_name}"
+        return f"{self.athlete.profile.first_name} {self.athlete.profile.last_name} - {self.name} - {self.date} - {self.event}"
 
 
 class AthleticsCurriculum(models.Model):

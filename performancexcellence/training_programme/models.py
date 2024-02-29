@@ -24,8 +24,7 @@ class Goals(models.Model):
     competition_event = models.ForeignKey(CompetitionEvent, on_delete=models.CASCADE, related_name='athlete_profile_goal', null=True, blank=True)
     season = models.CharField(max_length=255, null=True, blank=True)  # Typically, class attributes should be lowercase, consider renaming this to "season"
     season_period = models.CharField(max_length=255, null=True, blank=True)
-    competition_result = models.FloatField(null=True, blank=True)
-    competition_result_timing = models.DurationField(blank=True, null=True)
+    competition_result = models.CharField(null=True, blank=True, max_length=20)
     comments = models.TextField(null=True, blank=True)
 
     def __str__(self):

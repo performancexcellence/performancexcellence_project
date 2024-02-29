@@ -11,8 +11,8 @@ from physiotherapy.models import Injury
 from nutrition.models import AntropometricData
 from django.core.serializers import serialize
 from control_evaluation.models import Strength, Speed
-
-
+from datetime import datetime
+import json
 
 @login_required(login_url='login')
 def show_athlete(request, pk):
@@ -45,7 +45,6 @@ def show_athlete_wellness(request, pk):
     load_registers = LoadControl.objects.filter(athlete=athlete.id)
     wellness_graph = weekly_wellness(wellness_registers)
     load_graph = weekly_load(load_registers)
-    print(load_graph)
     profile = Profile.objects.get(id=athlete.profile.id)
     wellness_json = str(wellness_graph).replace("'", '"')
     load_json = str(load_graph).replace("'", '"')
@@ -67,7 +66,7 @@ def show_athlete_personal_records(request, pk):
     context = {
         'athlete': athlete,
         'profile': profile,
-        "personal_records": personal_records,
+        "personal_records": personal_records
     }
 
     return render(request, 'athletes/athlete_show_personal_records.html', context)
@@ -75,20 +74,32 @@ def show_athlete_personal_records(request, pk):
 @login_required(login_url='login')
 def show_athlete_progression(request, pk):
     event = request.GET.get('event')
+    period = request.GET.get('period')
     athlete = Athlete.objects.get(id=pk)
     profile = Profile.objects.get(id=athlete.profile.id)
     competitions_events = get_competitions_by_athlete(athlete.id)
     if event is None:
         event = competitions_events[0].event_name
-    progression = progression_by_year(pk, event)
-    progression = progression[event]
-    progression_json = str(progression).replace("'", '"')
+    #-----------Calcular periodos para o filtro-----------------
+    years_array = ["Best By Year"]
+    competitions = Competition.objects.filter(athlete=athlete).order_by('date')
+    for competition in competitions:
+        if competition.date:
+            year = competition.date.year
+            if year not in years_array:
+                years_array.append(year)
+    #----------------Calcular os melhores resultados por atleta para o periodo selecionado--------------
+    x_axis, y_axis = get_progression(athlete, event, period)
+    y_axis = list(map(lambda x: float(x.replace("'", '"')), y_axis))
     context = {
         'competitions_events': competitions_events,
         'athlete': athlete,
         'profile': profile,
-        "progression_data": progression_json,
-        'event': event
+        'event': event,
+        "periods": [str(p) for p in years_array],
+        "period": period,
+        "x_axis": str(x_axis).replace("'", '"'),
+        'y_axis': y_axis
     }
     return render(request, 'athletes/athlete_show_progression.html', context)
 

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.urls import conf
 from django.db.models import Q
 from .models import Profile
+from datetime import date, datetime, timedelta
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
 from athletes.models import Athlete
@@ -49,9 +50,6 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def home(request):
-    last_7_days = date.today() - timedelta(days=7)
-    start_date = datetime(last_7_days.year, last_7_days.month, last_7_days.day, 0, 0, 0)
-    end_date = datetime(date.today().year, date.today().month, date.today().day, 23, 59, 59)
     current_user = request.user
     profile = Profile.objects.get(user=current_user)
     try:

@@ -152,10 +152,12 @@
                                     <tbody class="text-center">
                                     <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
                                     {% for evaluation in physiology_evaluations %}
+                                        {% if evaluation.cmj is not None %}
                                     <tr>
                                         <td>{{ evaluation.date }}</td>
                                         <td>{{ evaluation.cmj }}</td>
                                     </tr>
+                                    {% endif %}
                                     {% endfor %}
                                     </tbody>
                                 </table>
@@ -184,10 +186,12 @@
                                         <tbody class="text-center">
                                         <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
                                             {% for evaluation in physiology_evaluations %}
-                                        <tr>
-                                            <td>{{ evaluation.date }}</td>
-                                            <td>{{ evaluation.average_rsi }}</td>
-                                        </tr>
+                                            {% if evaluation.average_rsi is not None %}
+                                                <tr>
+                                                    <td>{{ evaluation.date }}</td>
+                                                    <td>{{ evaluation.average_rsi }}</td>
+                                                </tr>
+                                        {% endif %}
                                         {% endfor %}
 
                                         </tbody>
@@ -212,17 +216,20 @@
                                         <tr class="text-center">
                                             <th>Data</th>
                                             <th>MTP</th>
+                                            <th>Time To Peak Tork</th>
                                         </tr>
                                         </thead>
                                         <tbody class="text-center">
                                         <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
                                             {% for evaluation in physiology_evaluations %}
-                                        <tr>
-                                            <td>{{ evaluation.date }}</td>
-                                            <td>{{ evaluation.imtp_peak_force }}</td>
-                                        </tr>
-                                        {% endfor %}
-
+                                                {% if evaluation.imtp_peak_force is not None %}
+                                                    <tr>
+                                                        <td>{{ evaluation.date }}</td>
+                                                        <td>{{ evaluation.imtp_peak_force }}</td>
+                                                        <td>{{ evaluation.time_to_peak_tork }}</td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
@@ -252,12 +259,14 @@
                                         <tbody class="text-center">
                                         <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
                                             {% for evaluation in physiology_evaluations %}
+                                            {% if evaluation.adductor_left_peak_force is not None %}
                                         <tr>
                                             <td>{{ evaluation.date }}</td>
                                             <td>{{ evaluation.adductor_left_peak_force }}</td>
                                             <td>{{ evaluation.adductor_right_peak_force }}</td>
                                             <td class="{% if evaluation.adductor_deficit < 5 %}green{% elif evaluation.adductor_deficit >= 5 and evaluation.adductor_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.adductor_deficit }} %</td>
                                         </tr>
+                                        {% endif %}
                                         {% endfor %}
 
                                         </tbody>
@@ -289,12 +298,14 @@
                                         <tbody class="text-center">
                                         <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
                                             {% for evaluation in physiology_evaluations %}
+                                            {% if evaluation.abductor_left_peak_force is not None %}
                                         <tr>
                                             <td>{{ evaluation.date }}</td>
                                             <td>{{ evaluation.abductor_left_peak_force }}</td>
                                             <td>{{ evaluation.abductor_right_peak_force }}</td>
                                             <td class="{% if evaluation.abductor_deficit < 5 %}green{% elif evaluation.abductor_deficit >= 5 and evaluation.abductor_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.abductor_deficit }} %</td>
                                         </tr>
+                                        {% endif %}
                                         {% endfor %}
 
                                         </tbody>
@@ -327,12 +338,14 @@
                                         <tbody class="text-center">
                                         <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
                                             {% for evaluation in physiology_evaluations %}
+                                            {% if evaluation.hams_left is not None %}
                                         <tr>
                                             <td>{{ evaluation.date }}</td>
                                             <td>{{ evaluation.hams_left }}</td>
                                             <td>{{ evaluation.hams_right }}</td>
                                             <td class="{% if evaluation.hams_deficit < 5 %}green{% elif evaluation.hams_deficit >= 5 and evaluation.hams_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.hams_deficit }} %</td>
                                         </tr>
+                                        {% endif %}
                                         {% endfor %}
 
                                         </tbody>
@@ -365,12 +378,14 @@
                                         <tbody class="text-center">
                                         <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
                                             {% for evaluation in physiology_evaluations %}
+                                            {% if evaluation.quad_left is not None %}
                                         <tr>
                                             <td>{{ evaluation.date }}</td>
                                             <td>{{ evaluation.quad_left }}</td>
                                             <td>{{ evaluation.quad_right }}</td>
                                             <td class="{% if evaluation.quad_deficit < 5 %}green{% elif evaluation.quad_deficit >= 5 and evaluation.quad_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.quad_deficit }} %</td>
                                         </tr>
+                                        {% endif %}
                                         {% endfor %}
 
                                         </tbody>
@@ -403,12 +418,14 @@
                                         <tbody class="text-center">
                                         <tr data-season="{{ record.season }}" data-period="{{ record.competition_period }}">
                                             {% for evaluation in physiology_evaluations %}
+                                            {% if evaluation.calf_left is not None %}
                                         <tr>
                                             <td>{{ evaluation.date }}</td>
                                             <td>{{ evaluation.calf_left }}</td>
                                             <td>{{ evaluation.calf_right }}</td>
                                             <td class="{% if evaluation.calf_deficit < 5 %}green{% elif evaluation.calf_deficit >= 5 and evaluation.calf_deficit <= 10 %}yellow{% else %}red{% endif %}">{{ evaluation.calf_deficit }} %</td>
                                         </tr>
+                                        {% endif %}
                                             {% endfor %}
                                         </tbody>
                                     </table>
