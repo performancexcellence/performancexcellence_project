@@ -67,6 +67,25 @@
           </ul>
         </li>
         {%endif%}
+        {%if current_profile.is_athlete%}
+        <li class="nav-item ">
+          <a href="#" class="nav-link {% if '/questionnaires/' in request.path and not '/athletes/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Questionários
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'wellness_questionnaire' user.id %}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Wellness</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {%endif%}
         {%if current_profile.is_staff%}
         <li class="nav-item ">
           <a href="#" class="nav-link {% if '/control-evaluation/' in request.path %}active{% endif %}">

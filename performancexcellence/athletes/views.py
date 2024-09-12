@@ -13,6 +13,7 @@ from django.core.serializers import serialize
 from control_evaluation.models import Strength, Speed
 from datetime import datetime
 import json
+import numpy as np
 
 @login_required(login_url='login')
 def show_athlete(request, pk):
@@ -43,11 +44,32 @@ def show_athlete_wellness(request, pk):
     athlete = Athlete.objects.get(id=pk)
     wellness_registers = WellnessDaily.objects.filter(athlete=athlete.id)
     load_registers = LoadControl.objects.filter(athlete=athlete.id)
+
+    # Assuming weekly_wellness and weekly_load return Python dicts or lists
     wellness_graph = weekly_wellness(wellness_registers)
     load_graph = weekly_load(load_registers)
+
+    # Convert np.float64 to standard float for JSON compatibility
+    def convert_to_standard_types(data):
+        if isinstance(data, dict):
+            return {key: convert_to_standard_types(value) for key, value in data.items()}
+        elif isinstance(data, list):
+            return [convert_to_standard_types(item) for item in data]
+        elif isinstance(data, np.float64):
+            return float(data)
+        else:
+            return data
+
+    # Apply conversion
+    wellness_graph_converted = convert_to_standard_types(wellness_graph)
+    load_graph_converted = convert_to_standard_types(load_graph)
+
+    # Use json.dumps to create valid JSON strings
+    wellness_json = json.dumps(wellness_graph_converted)
+    load_json = json.dumps(load_graph_converted)
+
     profile = Profile.objects.get(id=athlete.profile.id)
-    wellness_json = str(wellness_graph).replace("'", '"')
-    load_json = str(load_graph).replace("'", '"')
+
     context = {
         'athlete': athlete,
         'profile': profile,
@@ -57,7 +79,6 @@ def show_athlete_wellness(request, pk):
     }
 
     return render(request, 'athletes/athlete_show_wellness.html', context)
-
 @login_required(login_url='login')
 def show_athlete_personal_records(request, pk):
     athlete = Athlete.objects.get(id=pk)

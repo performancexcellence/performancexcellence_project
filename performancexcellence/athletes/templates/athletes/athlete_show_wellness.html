@@ -122,11 +122,12 @@
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
+                        <p>XPTO</p>
                         <figure class="highcharts-figure">
                             <div id="wellness"></div>
                         </figure>
                         <figure class="highcharts-figure">
-                            <div id="container"></div>
+                            <div id="load"></div>
                         </figure>
                     </div><!-- /.card-body -->
                 </div>
@@ -207,13 +208,12 @@
         }]
     });
 
-    Highcharts.chart('container', {
+    Highcharts.chart('load', {
     chart: {
         zoomType: 'xy'
     },
     title: {
-        text: 'Load',
-        align: 'left'
+        text: 'Controlo Subjetivo de Carga:'
     },
     subtitle: {
         text: '',
@@ -270,7 +270,7 @@ series: [{
         yAxis: 1,
         data: load.load,
         tooltip: {
-            valueSuffix: ' horas'
+            valueSuffix: ''
         }
     }, {
         name: 'Intensidade',
@@ -284,7 +284,7 @@ series: [{
         type: 'line', // or any other type you want
         data: load.volume,
         tooltip: {
-            valueSuffix: ''
+            valueSuffix: ' horas'
         }
     }]
 });

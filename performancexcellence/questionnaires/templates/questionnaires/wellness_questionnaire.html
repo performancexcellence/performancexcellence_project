@@ -1,0 +1,194 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<br>
+
+<!-- Main Section -->
+<form class="form" method="POST" action="#" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <!-- Peso -->
+        <div class="col-md-6">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Controlo Peso</h3>
+                </div>
+                <div class="card-body">
+                    <input class="form-control form-control-lg" type="number" step="0.01" placeholder="Peso (kg)" name="weight">
+                </div>
+            </div>
+        </div>
+
+        <!-- Horas Dormidas -->
+        <div class="col-md-6">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Horas Dormidas</h3>
+                </div>
+                <div class="card-body">
+                    <input class="form-control form-control-lg" type="number" step="0.1" placeholder="Valor em Horas" name="hours_sleep">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controlo Subjetivo de Carga -->
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">Controlo Subjetivo de Carga</h3>
+        </div>
+        <div class="card-body">
+            <!-- Nível de Energia -->
+            <div class="form-group">
+                <label class="text-center d-block mb-3">Nível de Energia</label>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-center">Muito Fresco</span>
+                        <span class="text-center">Fresco</span>
+                        <span class="text-center">Normal</span>
+                        <span class="text-center">Mais Fresco do que o Normal</span>
+                        <span class="text-center">Muito Fresco</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <input type="radio" name="energy_level" value="1" id="level1">
+                        <input type="radio" name="energy_level" value="2" id="level2">
+                        <input type="radio" name="energy_level" value="3" id="level3">
+                        <input type="radio" name="energy_level" value="4" id="level4">
+                        <input type="radio" name="energy_level" value="5" id="level5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qualidade de Sono -->
+            <div class="form-group">
+                <label class="text-center d-block mb-3">Qualidade de Sono</label>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-center">Muito Tranquilo</span>
+                        <span class="text-center">Bom</span>
+                        <span class="text-center">Dificuldade em Adormecer</span>
+                        <span class="text-center">Sono Agitado</span>
+                        <span class="text-center">Insónia</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <input type="radio" name="sleep_quality" value="1" id="sleep1">
+                        <input type="radio" name="sleep_quality" value="2" id="sleep2">
+                        <input type="radio" name="sleep_quality" value="3" id="sleep3">
+                        <input type="radio" name="sleep_quality" value="4" id="sleep4">
+                        <input type="radio" name="sleep_quality" value="5" id="sleep5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dores Musculares -->
+            <div class="form-group">
+                <label class="text-center d-block mb-3">Dores Musculares</label>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-center">Nenhuma</span>
+                        <span class="text-center">Leve</span>
+                        <span class="text-center">Moderada</span>
+                        <span class="text-center">Intensa</span>
+                        <span class="text-center">Muito Intensa</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <input type="radio" name="muscle_pain" value="1" id="pain1">
+                        <input type="radio" name="muscle_pain" value="2" id="pain2">
+                        <input type="radio" name="muscle_pain" value="3" id="pain3">
+                        <input type="radio" name="muscle_pain" value="4" id="pain4">
+                        <input type="radio" name="muscle_pain" value="5" id="pain5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nível de Stress -->
+            <div class="form-group">
+                <label class="text-center d-block mb-3">Nível de Stress</label>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-center">Muito Baixo</span>
+                        <span class="text-center">Baixo</span>
+                        <span class="text-center">Normal</span>
+                        <span class="text-center">Alto</span>
+                        <span class="text-center">Muito Alto</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <input type="radio" name="stress_level" value="1" id="stress1">
+                        <input type="radio" name="stress_level" value="2" id="stress2">
+                        <input type="radio" name="stress_level" value="3" id="stress3">
+                        <input type="radio" name="stress_level" value="4" id="stress4">
+                        <input type="radio" name="stress_level" value="5" id="stress5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mood -->
+            <div class="form-group">
+                <label class="text-center d-block mb-3">Mood</label>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-center">Muito Ruim</span>
+                        <span class="text-center">Ruim</span>
+                        <span class="text-center">Neutro</span>
+                        <span class="text-center">Bom</span>
+                        <span class="text-center">Excelente</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <input type="radio" name="mood" value="1" id="mood1">
+                        <input type="radio" name="mood" value="2" id="mood2">
+                        <input type="radio" name="mood" value="3" id="mood3">
+                        <input type="radio" name="mood" value="4" id="mood4">
+                        <input type="radio" name="mood" value="5" id="mood5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Urina -->
+            <div class="form-group">
+                <label class="text-center d-block mb-3">Hidratação</label>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-center">Transparente</span>
+                        <span class="text-center">Ligeiramente Amarelado</span>
+                        <span class="text-center">Amarelado</span>
+                        <span class="text-center">Escura</span>
+                        <span class="text-center">Muito Escura</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <input type="radio" name="urine" value="1" id="urine1">
+                        <input type="radio" name="urine" value="2" id="urine2">
+                        <input type="radio" name="urine" value="3" id="urine3">
+                        <input type="radio" name="urine" value="4" id="urine4">
+                        <input type="radio" name="urine" value="5" id="urine5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nutrição -->
+            <div class="mb-4">
+                <label class="d-block mb-2">Qualidade das Refeições</label>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-center">Altamente Nutritiva</span>
+                        <span class="text-center">Equilibrada</span>
+                        <span class="text-center">Fast Food</span>
+                        <span class="text-center">Perdi 1 Refeição</span>
+                        <span class="text-center">Jejum Prolongado</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <input type="radio" name="meal_quality" value="1" id="meal_quality1">
+                        <input type="radio" name="meal_quality" value="2" id="meal_quality2">
+                        <input type="radio" name="meal_quality" value="3" id="meal_quality3">
+                        <input type="radio" name="meal_quality" value="4" id="meal_quality4">
+                        <input type="radio" name="meal_quality" value="5" id="meal_quality5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-secondary float-right">Submeter</button>
+        </div>
+    </div>
+</form>
+
+{% endblock content %}

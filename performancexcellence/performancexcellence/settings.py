@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'physiology.apps.PhysiologyConfig',
     'training_programme.apps.TrainingProgrammeConfig',
     'nutrition.apps.NutritionConfig',
-    'physiotherapy.apps.PhysiotherapyConfig'
+    'physiotherapy.apps.PhysiotherapyConfig',
+    'questionnaires.apps.QuestionnairesConfig'
 ]
 
 MIDDLEWARE = [
